@@ -797,7 +797,7 @@ GameObject:
   - component: {fileID: 1889869506697489454}
   - component: {fileID: 5821162123067567540}
   - component: {fileID: 2793808570982525053}
-  - component: {fileID: 6371819690968209441}
+  - component: {fileID: 4259648235367050817}
   m_Layer: 5
   m_Name: BallConfigurationUI
   m_TagString: Untagged
@@ -960,8 +960,7 @@ MonoBehaviour:
   _bounceCombineDropdown: {fileID: 5739251373326398050}
   _spawnPointComponent: {fileID: 2242816815090132370}
   _speedComponent: {fileID: 7481883003642168703}
-  _useKeyboard: 1
---- !u!114 &6371819690968209441
+--- !u!114 &4259648235367050817
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -970,16 +969,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 5125950354769736659}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7951c64acb0fa62458bf30a60089fe2d, type: 3}
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 0
-  m_CheckFor2DOcclusion: 0
-  m_CheckFor3DOcclusion: 0
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RaycastTriggerInteraction: 1
 --- !u!1 &5278283946287766482
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace MaterialFactory
+namespace MaterialFactory.BallStuff
 {
     public class BallConfiguration
     {

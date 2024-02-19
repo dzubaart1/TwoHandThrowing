@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace MaterialFactory
+namespace MaterialFactory.UI
 {
     public class Vector3FloatComponent : MonoBehaviour
     {

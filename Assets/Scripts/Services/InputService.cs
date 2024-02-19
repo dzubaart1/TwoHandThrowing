@@ -1,7 +1,7 @@
 ﻿using Unity.XR.CoreUtils;
 using UnityEngine;
 
-namespace Services
+namespace Keyboard.Services
 {
     public class InputService
     {

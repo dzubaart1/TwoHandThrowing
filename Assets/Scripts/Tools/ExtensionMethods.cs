@@ -2,7 +2,7 @@
 using System.Reflection;
 using UnityEngine;
 
-namespace MaterialFactory
+namespace MaterialFactory.Tools
 {
     public static class ExtensionMethods
     {

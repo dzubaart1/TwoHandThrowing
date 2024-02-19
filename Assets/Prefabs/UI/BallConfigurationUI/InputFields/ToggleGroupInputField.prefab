@@ -31,7 +31,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3926793663137212507}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -145,7 +144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3926793663137212507}
   m_Layer: 5
-  m_Name: Vector3ToggleInputField
+  m_Name: ToggleGroupInputField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -166,7 +165,6 @@ RectTransform:
   - {fileID: 3747776871492403038}
   - {fileID: 8052338114920189253}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -178,6 +176,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 3926793663137212507}
     m_Modifications:
     - target: {fileID: 1627472412259011632, guid: 1aeefcc6dbc8c184889a03c2958fa571, type: 3}
@@ -258,7 +257,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3722845154178640039, guid: 1aeefcc6dbc8c184889a03c2958fa571, type: 3}
       propertyPath: m_Name
-      value: Vector3Toggle
+      value: ToggleGroup
       objectReference: {fileID: 0}
     - target: {fileID: 6147919981856153453, guid: 1aeefcc6dbc8c184889a03c2958fa571, type: 3}
       propertyPath: m_AnchorMax.y
@@ -276,6 +275,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6592780387021764088, guid: 1aeefcc6dbc8c184889a03c2958fa571, type: 3}
+      propertyPath: _toggles.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6592780387021764088, guid: 1aeefcc6dbc8c184889a03c2958fa571, type: 3}
+      propertyPath: _toggles.Array.data[0]
+      value: 
+      objectReference: {fileID: 617136704718498140}
+    - target: {fileID: 6592780387021764088, guid: 1aeefcc6dbc8c184889a03c2958fa571, type: 3}
+      propertyPath: _toggles.Array.data[1]
+      value: 
+      objectReference: {fileID: 937195849617152287}
+    - target: {fileID: 6592780387021764088, guid: 1aeefcc6dbc8c184889a03c2958fa571, type: 3}
+      propertyPath: _toggles.Array.data[2]
+      value: 
+      objectReference: {fileID: 4532500506898212404}
     - target: {fileID: 7144928943611842565, guid: 1aeefcc6dbc8c184889a03c2958fa571, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -309,7 +324,43 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1aeefcc6dbc8c184889a03c2958fa571, type: 3}
+--- !u!114 &617136704718498140 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8195097507056035881, guid: 1aeefcc6dbc8c184889a03c2958fa571, type: 3}
+  m_PrefabInstance: {fileID: 8730886843506770293}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &937195849617152287 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8370997618666166378, guid: 1aeefcc6dbc8c184889a03c2958fa571, type: 3}
+  m_PrefabInstance: {fileID: 8730886843506770293}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4532500506898212404 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5173785366740100929, guid: 1aeefcc6dbc8c184889a03c2958fa571, type: 3}
+  m_PrefabInstance: {fileID: 8730886843506770293}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8052338114920189253 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1627472412259011632, guid: 1aeefcc6dbc8c184889a03c2958fa571, type: 3}

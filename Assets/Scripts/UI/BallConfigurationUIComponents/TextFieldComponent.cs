@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace MaterialFactory
+namespace Keyboard.UI
 {
     [RequireComponent(typeof(TMP_InputField))]
     public class TextFieldComponent : MonoBehaviour

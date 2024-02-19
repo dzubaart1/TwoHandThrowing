@@ -1,8 +1,8 @@
-﻿using MaterialFactory;
+﻿using MaterialFactory.BallStuff;
 using System;
 using UnityEngine;
 
-namespace Services
+namespace MaterialFactory.Services
 {
     public class BallConfigurationService
     {

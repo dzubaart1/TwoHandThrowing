@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 7875203164064155425}
   - component: {fileID: 2817475689196589484}
   - component: {fileID: 2289010968405981038}
-  - component: {fileID: 5756191238537091416}
+  - component: {fileID: 3923664601702653738}
   m_Layer: 0
-  m_Name: BallPrefab
+  m_Name: ThrowingBallPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -288,7 +288,7 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
---- !u!114 &5756191238537091416
+--- !u!114 &3923664601702653738
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -297,7 +297,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3345700484875489657}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 134f264dafcb6064e90a1d067b048394, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c72c148d134faf4aafdf01391e89e7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _secondsToDestroy: 2

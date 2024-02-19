@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Keyboard.Services;
+using System;
 using UnityEngine;
 
-namespace Services
+namespace TwoHandThrowing.Services
 {
     public class RuntimeBehaviourService
     {

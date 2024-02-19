@@ -1,6 +1,7 @@
 using UnityEngine;
+using MaterialFactory.Tools;
 
-namespace MaterialFactory
+namespace MaterialFactory.BallStuff
 {
     [RequireComponent(typeof(Collider))]
     public class Ball : MonoBehaviour

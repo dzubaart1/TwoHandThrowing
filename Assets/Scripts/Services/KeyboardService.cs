@@ -1,8 +1,7 @@
-﻿using Keyboard;
-using MaterialFactory;
+﻿using Keyboard.UI;
 using UnityEngine;
 
-namespace Services
+namespace Keyboard.Services
 {
     public class KeyboardService
     {

@@ -1,7 +1,7 @@
 using UnityEngine;
-using Services;
 using UnityEngine.UI;
 using TMPro;
+using Keyboard.Services;
 
 namespace Keyboard
 {

@@ -1,8 +1,8 @@
-using MaterialFactory;
+using MaterialFactory.BallStuff;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Throwing
+namespace TwoHandThrowing.PushStaff
 {
     public class PushingPlace : MonoBehaviour
     {

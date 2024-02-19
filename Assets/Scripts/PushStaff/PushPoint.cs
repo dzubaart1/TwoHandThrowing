@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Throwing
+namespace TwoHandThrowing.PushStaff
 {
     public class PushPoint : MonoBehaviour
     {

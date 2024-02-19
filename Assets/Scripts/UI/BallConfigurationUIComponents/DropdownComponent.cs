@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using System;
 
-namespace MaterialFactory
+namespace MaterialFactory.UI
 {
 
     [RequireComponent(typeof(TMP_Dropdown))]

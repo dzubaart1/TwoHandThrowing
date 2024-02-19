@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-using TMPro;
+﻿using Keyboard.UI;
+using MaterialFactory.Services;
+using UnityEngine;
 using UnityEngine.UI;
-using Services;
 
-namespace MaterialFactory
+namespace MaterialFactory.UI
 {
     public class BallConfigurationUI : MonoBehaviour
     {
@@ -12,7 +12,7 @@ namespace MaterialFactory
         [SerializeField] private TextFieldComponent _dragText, _angDragText;
         [SerializeField] private Toggle _useGravityToggle, _isKinematicToggle;
         [SerializeField] private DropdownComponent _interpolationDropdown, _collisionDetectionDropdown;
-        [SerializeField] private Vector3ToggleComponent _freezePos, _freezeRot;
+        [SerializeField] private ToggleGroupComponent _freezePos, _freezeRot;
         [SerializeField] private Button _confirmBtn, _spawnBtn;
 
         [Space]
@@ -62,8 +62,8 @@ namespace MaterialFactory
             _rigidbody.isKinematic = _isKinematicToggle.isOn;
             _rigidbody.interpolation = _interpolationDropdown.GetDropDownEnumValue<RigidbodyInterpolation>();
             _rigidbody.collisionDetectionMode = _collisionDetectionDropdown.GetDropDownEnumValue<CollisionDetectionMode>();
-            _posSum = TransferBitsToSum(_freezePos.GetXYZ(), 2);
-            _rotSum = TransferBitsToSum(_freezeRot.GetXYZ(), 16);
+            _posSum = TransferBitsToSum(_freezePos.GetBits(), 2);
+            _rotSum = TransferBitsToSum(_freezeRot.GetBits(), 16);
             _rigidbody.constraints = (RigidbodyConstraints)(_posSum + _rotSum);
 
             _physicMaterial.dynamicFriction = float.Parse(_dynamicFrictionText.Text);
