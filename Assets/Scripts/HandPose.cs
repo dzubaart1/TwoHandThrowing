@@ -9,6 +9,11 @@ public class HandPose : MonoBehaviour
     [SerializeField] private HandGrabInteractable _handGrabInteractable;
     [SerializeField] private HandData _handDataPose;
 
+    [SerializeField] private GameObject _leftHandVisual;
+    [SerializeField] private GameObject _rightHandVisual;
+    [SerializeField] private GameObject _leftHandGhostVisual;
+    [SerializeField] private GameObject _rightHandGhostVisual;
+
     private void Start()
     {
         _handGrabInteractable.selectEntered.AddListener(OnSelectEntered);
@@ -35,13 +40,25 @@ public class HandPose : MonoBehaviour
             return;
         }
 
-        handRef.HandData.Animator.enabled = false;
+        switch (handRef.HandData.HandType)
+        {
+            case HandType.Left:
+                _leftHandVisual.SetActive(false);
+                _leftHandGhostVisual.SetActive(true);
+                break;
+            case HandType.Right:
+                _rightHandVisual.SetActive(false);
+                _rightHandGhostVisual.SetActive(true);
+                break;
+        }
+
+        /*handRef.HandData.Animator.enabled = false;
         handRef.HandData.Root.parent.localRotation = _handDataPose.Root.localRotation;
 
         for(int i = 0; i < handRef.HandData.Bones.Length; i++)
         {
             handRef.HandData.Bones[i].localRotation = _handDataPose.Bones[i].localRotation;
-        }
+        }*/
     }
 
     private void OnSelectExited(SelectExitEventArgs args)
@@ -52,7 +69,19 @@ public class HandPose : MonoBehaviour
             return;
         }
 
-        handRef.HandData.Animator.enabled = true;
+        switch (handRef.HandData.HandType)
+        {
+            case HandType.Left:
+                _leftHandVisual.SetActive(true);
+                _leftHandGhostVisual.SetActive(false);
+                break;
+            case HandType.Right:
+                _rightHandVisual.SetActive(true);
+                _rightHandGhostVisual.SetActive(false);
+                break;
+        }
+
+        /*handRef.HandData.Animator.enabled = true;
 
         switch(handRef.HandData.HandType)
         {
@@ -62,6 +91,6 @@ public class HandPose : MonoBehaviour
             case HandType.Right:
                 handRef.HandData.Root.parent.localRotation = Quaternion.Euler(new Vector3(-90, 0, -90));
                 break;
-        }
+        }*/
     }
 }
