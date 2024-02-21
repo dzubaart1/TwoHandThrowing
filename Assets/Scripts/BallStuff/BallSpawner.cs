@@ -1,11 +1,12 @@
-﻿using MaterialFactory.Services;
+﻿using Core;
+using Services;
 using UnityEngine;
 
 namespace MaterialFactory.BallStuff
 {
     public class BallSpawner : MonoBehaviour
     {
-        private const string BALL_PREFAB_PATH = "Prefabs/ThrowingBallPrefab";
+        private const string BALL_PREFAB_PATH = "Prefabs/Ball";
 
         private BallConfigurationService _ballConfigurationService;
 
@@ -14,7 +15,7 @@ namespace MaterialFactory.BallStuff
 
         private void Awake()
         {
-            _ballConfigurationService = BallConfigurationService.Instance();
+            _ballConfigurationService = Engine.GetService<BallConfigurationService>();
 
             _ballPrefab = Resources.Load<Ball>(BALL_PREFAB_PATH);
             _ballHolder = new GameObject("BallHolder").transform;

@@ -1350,8 +1350,8 @@ GameObject:
   m_Component:
   - component: {fileID: 248170895379203363}
   - component: {fileID: 2844061657968780927}
-  - component: {fileID: 4871819749479714479}
-  - component: {fileID: 4332823831488243449}
+  - component: {fileID: 1612191475625652705}
+  - component: {fileID: 1751781328153643808}
   m_Layer: 0
   m_Name: OculusHand_R
   m_TagString: Untagged
@@ -1397,7 +1397,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4871819749479714479
+--- !u!114 &1612191475625652705
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1406,11 +1406,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4743730636447372607}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e483feb2d9d7304490308f49ebe5b27, type: 3}
+  m_Script: {fileID: 11500000, guid: 5277e7fb09d70ed49b6ee72c509ac2bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _inputDeviceCharacteristics: 576
---- !u!114 &4332823831488243449
+--- !u!114 &1751781328153643808
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1419,7 +1419,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4743730636447372607}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f82ad4693a7c60b4ab8d4ebda5d0dd32, type: 3}
+  m_Script: {fileID: 11500000, guid: 4eca3f32b6f64314eb50ab6723624d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   HandType: 1

@@ -3,20 +3,14 @@ using MaterialFactory.Tools;
 
 namespace MaterialFactory.BallStuff
 {
-    //[RequireComponent(typeof(Collider))]
     public class Ball : MonoBehaviour
     {
+        [SerializeField] private Collider _collider;
         [SerializeField] private float _secondsToDestroy = 2f;
 
         private Rigidbody _rigidbody;
 
         private BallConfiguration _ballConfiguration;
-        private Collider _collider;
-
-        private void Awake()
-        {
-            _collider = GetComponent<Collider>();
-        }
 
         public void AddForce(Vector3 force)
         {
