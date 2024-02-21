@@ -34,13 +34,12 @@ namespace TwoHandThrowing.Services
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Initialize()
         {
-
             var go = new GameObject("Platform<Runtime>");
             var comp = go.AddComponent<RuntimeBehaviour>();
 
-            InputService.Instance();
+            /*InputService.Instance();
             RuntimeBehaviourService.Instance().Init(comp);
-            KeyboardService.Instance().SpawnKeyboard();
+            KeyboardService.Instance().SpawnKeyboard();*/
         }
 
         private void Start()
