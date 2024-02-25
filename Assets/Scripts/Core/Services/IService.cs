@@ -1,9 +1,8 @@
-﻿using System.Threading.Tasks;
-
-namespace Services
+﻿namespace TwoHandThrowing.Core
 {
     public interface IService
     {
-        public Task Initialize();
+        public void Initialize();
+        public void Destroy();
     }
 }

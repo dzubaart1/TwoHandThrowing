@@ -1538,8 +1538,6 @@ MonoBehaviour:
   _wrist: {fileID: 6114460909712909105}
   _handGrabInteractable: {fileID: 2757168390836774381}
   _handDataPose: {fileID: 7049311249057137505}
-  _leftHandGhostVisual: {fileID: 6263389954673057298}
-  _rightHandGhostVisual: {fileID: 6804011661574247380}
 --- !u!1 &2604608238227533797
 GameObject:
   m_ObjectHideFlags: 0
@@ -1761,6 +1759,7 @@ MonoBehaviour:
   - {fileID: 5585251792460677720}
   - {fileID: 5204403032338608870}
   - {fileID: 6525563951652108642}
+  _renderer: {fileID: 3694683585648538538}
 --- !u!1 &3283110883941606913
 GameObject:
   m_ObjectHideFlags: 0
@@ -3131,6 +3130,7 @@ MonoBehaviour:
   - {fileID: 500451159981631810}
   - {fileID: 2590683606186828038}
   - {fileID: 2387805320280771834}
+  _renderer: {fileID: 1563644540300876742}
 --- !u!1 &4536604042402920551
 GameObject:
   m_ObjectHideFlags: 0
@@ -4032,8 +4032,6 @@ MonoBehaviour:
   _wrist: {fileID: 2858560949038822827}
   _handGrabInteractable: {fileID: 2757168390836774381}
   _handDataPose: {fileID: 7061397400528236941}
-  _leftHandGhostVisual: {fileID: 6263389954673057298}
-  _rightHandGhostVisual: {fileID: 6804011661574247380}
 --- !u!1 &6080007174326528382
 GameObject:
   m_ObjectHideFlags: 0
@@ -4175,7 +4173,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7043433204943306299
 Transform:
   m_ObjectHideFlags: 0
@@ -4198,7 +4196,7 @@ SkinnedMeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6263389954673057298}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -4617,7 +4615,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4299639144666446441
 Transform:
   m_ObjectHideFlags: 0
@@ -4640,7 +4638,7 @@ SkinnedMeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6804011661574247380}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

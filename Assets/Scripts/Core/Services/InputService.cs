@@ -1,24 +1,35 @@
-﻿using Player;
-using System.Threading.Tasks;
-using Unity.XR.CoreUtils;
+﻿using Mirror;
+using TwoHandThrowing.Player;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.UI;
 
-namespace Services
+namespace TwoHandThrowing.Core
 {
     public class InputService : IService
     {
+        public InputConfiguration Configuration { get; private set; }
         public LocalPlayer LocalPlayer { get; private set; }
 
-        private const string XR_ORIGIN_PATH = "Prefabs/LocalPlayer";
-
-        private LocalPlayer _xrOriginPrefab;
-
-        public Task Initialize()
+        public InputService(InputConfiguration configuration)
         {
-            _xrOriginPrefab = Resources.Load<LocalPlayer>(XR_ORIGIN_PATH);
-            LocalPlayer = Object.Instantiate(_xrOriginPrefab);
+            Configuration = configuration;
+        }
 
-            return Task.CompletedTask;
+        public void Initialize()
+        {
+            var obj = new GameObject("InputManager", typeof(EventSystem));
+
+            obj.AddComponent<XRUIInputModule>();
+            obj.AddComponent<XRInteractionManager>();
+
+            LocalPlayer = Object.Instantiate(Configuration.LocalPlayer, Vector3.zero, Quaternion.identity);
+        }
+
+        public void Destroy()
+        {
         }
     }
 }

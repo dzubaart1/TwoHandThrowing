@@ -1,8 +1,7 @@
-﻿using Core;
-using Services;
+﻿using TwoHandThrowing.Core;
 using UnityEngine;
 
-namespace MaterialFactory.BallStuff
+namespace TwoHandThrowing.BallStuff
 {
     public class BallSpawner : MonoBehaviour
     {

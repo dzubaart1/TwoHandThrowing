@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Player
+namespace TwoHandThrowing.Player
 {
     [CustomEditor(typeof(HandPose))]
     public class EditorHandPose : Editor

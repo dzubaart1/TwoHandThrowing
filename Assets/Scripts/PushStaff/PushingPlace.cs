@@ -1,5 +1,5 @@
-using MaterialFactory.BallStuff;
 using System.Collections.Generic;
+using TwoHandThrowing.BallStuff;
 using UnityEngine;
 
 namespace TwoHandThrowing.PushStaff

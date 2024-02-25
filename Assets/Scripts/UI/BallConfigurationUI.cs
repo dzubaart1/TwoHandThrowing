@@ -1,9 +1,8 @@
-﻿using Core;
-using Services;
+﻿using TwoHandThrowing.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace MaterialFactory.UI
+namespace TwoHandThrowing.UI
 {
     public class BallConfigurationUI : MonoBehaviour
     {

@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace MaterialFactory.UI
+namespace TwoHandThrowing.UI
 {
     public class Vector3FloatComponent : MonoBehaviour
     {

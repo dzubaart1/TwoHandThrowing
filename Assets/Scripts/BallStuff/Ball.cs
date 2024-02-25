@@ -1,7 +1,7 @@
 using UnityEngine;
 using MaterialFactory.Tools;
 
-namespace MaterialFactory.BallStuff
+namespace TwoHandThrowing.BallStuff
 {
     public class Ball : MonoBehaviour
     {

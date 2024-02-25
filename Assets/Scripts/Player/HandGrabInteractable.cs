@@ -1,9 +1,8 @@
-﻿using Core;
-using Services;
+﻿using TwoHandThrowing.Core;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace Player
+namespace TwoHandThrowing.Player
 {
     public class HandGrabInteractable : XRGrabInteractable
     {
@@ -24,34 +23,26 @@ namespace Player
 
         private void Start()
         {
-            _rightInteractor = _inputService.LocalPlayer.RightInteractor;
-            _leftInteractor = _inputService.LocalPlayer.LeftInteractor;
+            _rightInteractor = _inputService.LocalPlayer.RightHand.XRDirectInteractor;
+            _leftInteractor = _inputService.LocalPlayer.LeftHand.XRDirectInteractor;
         }
 
         protected override void OnSelectEntering(SelectEnterEventArgs args)
         {
-            if(args.interactorObject == _leftInteractor)
+            if(interactorsSelecting.Count == 1)
             {
-                
-                if(interactorsSelecting.Count == 1)
-                {
-
-                }
-                else
-                {
-                    attachTransform.SetPositionAndRotation(_leftHandAttachTransform.position, _leftHandAttachTransform.rotation);
-                }
+                base.OnSelectEntering(args);
+                return;
             }
-            else if (args.interactorObject == _rightInteractor)
-            {
-                if (interactorsSelecting.Count == 1)
-                {
 
-                }
-                else
-                {
-                    attachTransform.SetPositionAndRotation(_rightHandAttachTransform.position, _rightHandAttachTransform.rotation);
-                }
+            if (args.interactorObject.Equals(_leftInteractor))
+            {
+                attachTransform.SetPositionAndRotation(_leftHandAttachTransform.position, _leftHandAttachTransform.rotation);
+            }
+
+            if(args.interactorObject.Equals(_rightInteractor))
+            {
+                attachTransform.SetPositionAndRotation(_rightHandAttachTransform.position, _rightHandAttachTransform.rotation);
             }
 
             base.OnSelectEntering(args);
@@ -59,19 +50,20 @@ namespace Player
 
         protected override void OnSelectExiting(SelectExitEventArgs args)
         {
-            if (args.interactorObject == _leftInteractor)
+            if(interactorsSelecting.Count == 1)
             {
-                if (interactorsSelecting.Count == 2)
-                {
-                    attachTransform.SetPositionAndRotation(_rightHandAttachTransform.position, _rightHandAttachTransform.rotation);
-                }
+                base.OnSelectExiting(args);
+                return;
             }
-            else if (args.interactorObject == _rightInteractor)
+
+            if (args.interactorObject.Equals(_leftInteractor))
             {
-                if (interactorsSelecting.Count == 2)
-                {
-                    attachTransform.SetPositionAndRotation(_leftHandAttachTransform.position, _leftHandAttachTransform.rotation);
-                }
+                attachTransform.SetPositionAndRotation(_rightHandAttachTransform.position, _rightHandAttachTransform.rotation);
+            }
+
+            if (args.interactorObject.Equals(_rightInteractor))
+            {
+                attachTransform.SetPositionAndRotation(_leftHandAttachTransform.position, _leftHandAttachTransform.rotation);
             }
 
             base.OnSelectExiting(args);

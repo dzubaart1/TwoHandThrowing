@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace Keyboard.UI
+namespace TwoHandThrowing.UI
 {
     [RequireComponent(typeof(TMP_InputField))]
     public class TextFieldComponent : MonoBehaviour

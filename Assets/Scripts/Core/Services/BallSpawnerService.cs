@@ -1,10 +1,8 @@
-﻿using MaterialFactory.BallStuff;
-using Services;
-using System;
-using System.Threading.Tasks;
+﻿using System;
+using TwoHandThrowing.BallStuff;
 using UnityEngine;
 
-namespace Services
+namespace TwoHandThrowing.Core
 {
     public class BallSpawnerService : IService
     {
@@ -14,11 +12,13 @@ namespace Services
         private Vector3 _spawnPoint;
         private Vector3 _force;
 
-        public Task Initialize()
+        public void Initialize()
         {
             _ballSpawner = new GameObject("Spawner", typeof(BallSpawner)).GetComponent<BallSpawner>();
+        }
 
-            return Task.CompletedTask;
+        public void Destroy()
+        {
         }
 
         public void Spawn()
@@ -32,5 +32,7 @@ namespace Services
             _spawnPoint = spawnPoint;
             _force = force;
         }
+
+
     }
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Player
+namespace TwoHandThrowing.Player
 {
     public class MirrorHandPose : MonoBehaviour
     {

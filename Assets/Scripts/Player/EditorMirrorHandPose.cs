@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Player
+namespace TwoHandThrowing.Player
 {
     [CustomEditor(typeof(MirrorHandPose))]
     public class EditorMirrorHandPose : Editor

@@ -1,63 +1,61 @@
-﻿using Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Core
+namespace TwoHandThrowing.Core
 {
     public class Engine
     {
-        public static RuntimeBehaviour RuntimeBehaviour;
+        public static RuntimeBehaviour Behaviour { get; set; }
 
-        private static Dictionary<Type, IService> _services;
+        private static Dictionary<Type, IService> _services = new Dictionary<Type, IService>();
 
-        public static Task Initialize(RuntimeBehaviour runtimeBehaviour)
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        public static void Initialize()
         {
-            RuntimeBehaviour = runtimeBehaviour;
-            _services = new Dictionary<Type, IService>();
+            Behaviour = new GameObject("RuntimeBehaviour", typeof(RuntimeBehaviour)).GetComponent<RuntimeBehaviour>();
 
             AddService(new BallConfigurationService());
             AddService(new BallSpawnerService());
-            AddService(new InputService());
+            AddService(new InputService(GetConfiguration<InputConfiguration>()));
+            AddService(new NetworkService());
 
-            var services = _services.Values.ToList();
+            foreach(var pair in _services)
+            {
+                pair.Value.Initialize();
+            }
+        }
 
-            foreach (var service in services)
-                service.Initialize();
+        ~Engine()
+        {
+            foreach (var service in _services)
+                service.Value.Destroy();
+        }
 
-            return Task.CompletedTask;
+        public static T GetConfiguration<T>() where T : Configuration
+        {
+            return ResourcesLoader.GetConfiguration<T>();
         }
 
         public static void AddService<T>(T service) where T : IService
         {
             if (_services.ContainsKey(typeof(T)))
-                throw new Exception($"Service {typeof(T)} already exists");
+                return;
 
             _services.Add(typeof(T), service);
         }
 
-        public static void RemoveService<T>() where T : IService
+        public static T GetService<T>() where T : IService
         {
-            if (_services.ContainsKey(typeof(T)))
-                _services.Remove(typeof(T));
-            else
-                throw new Exception($"Service {typeof(T)} doesn't exists");
+            if (!_services.ContainsKey(typeof(T)))
+                throw new Exception("Service doesn't exists.");
+
+            return (T)_services[typeof(T)];
         }
 
-        public static T GetService<T>() where T : class, IService
+        public static void Destroy(GameObject gameObject, float time = 0)
         {
-            if (_services.ContainsKey(typeof(T)))
-                return (T)_services[typeof(T)];
-
-            Type type = typeof(T);
-            var result = _services.FirstOrDefault(x => type.IsInstanceOfType(x.Value));
-
-            if (result.Value is null)
-                throw new Exception($"Service {typeof(T)} doesn't exists");
-
-            return (T)result.Value;
+            UnityEngine.Object.Destroy(gameObject, time);
         }
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using System;
 
-namespace MaterialFactory.UI
+namespace TwoHandThrowing.UI
 {
 
     [RequireComponent(typeof(TMP_Dropdown))]

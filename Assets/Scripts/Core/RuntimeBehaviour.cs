@@ -1,8 +1,7 @@
-﻿using Services;
-using System;
+﻿using System;
 using UnityEngine;
 
-namespace Core
+namespace TwoHandThrowing.Core
 {
     public class RuntimeBehaviour : MonoBehaviour
     {
@@ -11,16 +10,6 @@ namespace Core
         public event Action BehaviourFixedUpdateEvent;
         public event Action BehaviourDestroyEvent;
         public event Action BehaviourStartEvent;
-
-
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-        private static async void Initialize()
-        {
-            var go = new GameObject("Platform<Runtime>");
-            var comp = go.AddComponent<RuntimeBehaviour>();
-
-            await Engine.Initialize(comp);
-        }
 
         private void Start()
         {

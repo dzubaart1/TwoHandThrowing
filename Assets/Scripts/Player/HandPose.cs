@@ -1,9 +1,8 @@
-using Services;
-using Core;
+using TwoHandThrowing.Core;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace Player
+namespace TwoHandThrowing.Player
 {
     public class HandPose : MonoBehaviour
     {
@@ -12,12 +11,7 @@ namespace Player
         [SerializeField] private HandGrabInteractable _handGrabInteractable;
         [SerializeField] private HandData _handDataPose;
 
-
-        [SerializeField] private GameObject _leftHandGhostVisual;
-        [SerializeField] private GameObject _rightHandGhostVisual;
-
-        private GameObject _leftHandVisual;
-        private GameObject _rightHandVisual;
+        private SkinnedMeshRenderer _handVisual;
 
         private InputService _inputService;
 
@@ -28,8 +22,15 @@ namespace Player
 
         private void Start()
         {
-            _leftHandVisual = _inputService.LocalPlayer.LeftHandVisual;
-            _rightHandVisual = _inputService.LocalPlayer.RightHandVisual;
+            switch(_handDataPose.HandType)
+            {
+                case HandType.Left:
+                    _handVisual = _inputService.LocalPlayer.LeftHand.HandData.Renderer;
+                    break;
+                case HandType.Right:
+                    _handVisual = _inputService.LocalPlayer.RightHand.HandData.Renderer;
+                    break;
+            }
 
             _handGrabInteractable.selectEntered.AddListener(OnSelectEntered);
             _handGrabInteractable.selectExited.AddListener(OnSelectExited);
@@ -52,20 +53,21 @@ namespace Player
             var handRef = args.interactorObject.transform.GetComponent<HandRef>();
             if (handRef is null || handRef.HandData.HandType != _handDataPose.HandType)
             {
+                Debug.Log($"NONE {handRef is null} {handRef.HandData.HandType != _handDataPose.HandType}");
                 return;
             }
 
-            switch (handRef.HandData.HandType)
+            Debug.Log($"OK {handRef is null} {handRef.HandData.HandType != _handDataPose.HandType}");
+            _handVisual.enabled = false;
+            _handDataPose.Renderer.enabled = true;
+
+
+            /*handRef.HandData.Animator.enabled = false;
+            handRef.HandData.Root.parent.localRotation = _handDataPose.Root.localRotation;
+            for(int i = 0; i < _handDataPose.Bones.Length; i++)
             {
-                case HandType.Left:
-                    _leftHandVisual.SetActive(false);
-                    _leftHandGhostVisual.SetActive(true);
-                    break;
-                case HandType.Right:
-                    _rightHandVisual.SetActive(false);
-                    _rightHandGhostVisual.SetActive(true);
-                    break;
-            }
+                handRef.HandData.Bones[i].localRotation = _handDataPose.Bones[i].localRotation;
+            }*/
         }
 
         private void OnSelectExited(SelectExitEventArgs args)
@@ -76,17 +78,19 @@ namespace Player
                 return;
             }
 
-            switch (handRef.HandData.HandType)
+            _handVisual.enabled = true;
+            _handDataPose.Renderer.enabled = false;
+
+            /*handRef.HandData.Animator.enabled = true;
+
+            if(handRef.HandData.HandType == HandType.Right)
             {
-                case HandType.Left:
-                    _leftHandVisual.SetActive(true);
-                    _leftHandGhostVisual.SetActive(false);
-                    break;
-                case HandType.Right:
-                    _rightHandVisual.SetActive(true);
-                    _rightHandGhostVisual.SetActive(false);
-                    break;
+                handRef.HandData.Root.parent.localRotation = Quaternion.Euler(new Vector3(-90, 0, -90));
             }
+            else if(handRef.HandData.HandType == HandType.Left)
+            {
+                handRef.HandData.Root.parent.localRotation = Quaternion.Euler(new Vector3(90, 0, -90));
+            }*/
         }
     }
 }

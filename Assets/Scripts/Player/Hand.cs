@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 
-namespace Player
+namespace TwoHandThrowing.Player
 {
     [RequireComponent(typeof(Animator))]
     public class Hand : MonoBehaviour

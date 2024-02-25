@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace MaterialFactory.UI
+namespace TwoHandThrowing.UI
 {
     public class ToggleGroupComponent : MonoBehaviour
     {
