@@ -1,5 +1,6 @@
 ﻿using Mirror;
 using System;
+using System.Collections.Generic;
 using TwoHandThrowing.BallStuff;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ namespace TwoHandThrowing.Core
         public BallSpawnerConfiguration Configuration { get; private set; }
 
         private BallSpawner _ballSpawner;
+        private List<SpawnPoint> _spawnPoints;
 
         public BallSpawnerService(BallSpawnerConfiguration configuration)
         {
@@ -22,17 +24,29 @@ namespace TwoHandThrowing.Core
         {
             _ballSpawner = new GameObject("Spawner", typeof(BallSpawner)).GetComponent<BallSpawner>();
             _ballSpawner.SetBallPrefab(Configuration.BallPrefab);
+
+            _spawnPoints = new List<SpawnPoint>();
         }
 
         public void Destroy()
         {
         }
 
-        public void Spawn(NetworkIdentity owner, Vector3 spawnPoint, Vector3 force)
+        public void GetSpawnPoint()
         {
-            var obj = _ballSpawner.Spawn(spawnPoint, force);
-            NetworkServer.Spawn(obj);
-            obj.GetComponent<NetworkBehaviour>().netIdentity.AssignClientAuthority(owner.connectionToClient);
+            var spawnPoint = UnityEngine.Object.Instantiate(Configuration.SpawnPointPrefab, new Vector3(0,1,0), Quaternion.identity);
+            _spawnPoints.Add(spawnPoint);
+        }
+
+        public void Spawn(NetworkIdentity owner, Vector3 force)
+        {
+            foreach(var spawnPoint in _spawnPoints)
+            {
+                var obj = _ballSpawner.Spawn(spawnPoint.transform.position, force);
+                NetworkServer.Spawn(obj);
+                obj.GetComponent<NetworkBehaviour>().netIdentity.AssignClientAuthority(owner.connectionToClient);
+            }
+
             SpawnEvent?.Invoke();
         }
     }

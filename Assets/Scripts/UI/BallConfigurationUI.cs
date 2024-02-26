@@ -27,8 +27,8 @@ namespace TwoHandThrowing.UI
 
         [Space]
         [Header("Others")]
-        [SerializeField] private Vector3FloatComponent _spawnPointComponent;
-        [SerializeField] private Vector3FloatComponent _speedComponent;
+        [SerializeField] private Button _spawnPointBtn;
+        [SerializeField] private SliderComponent _ballLifeTime;
 
         private BallConfigurationService _ballConfigurationService;
         private BallSpawnerService _ballSpawnerService;
@@ -49,13 +49,17 @@ namespace TwoHandThrowing.UI
             _rigidbody = _ballConfigurationService.TEMPObject.AddComponent<Rigidbody>();
 
             _confirmBtn.onClick.AddListener(OnClickConfirmBtn);
+            _spawnPointBtn.onClick.AddListener(OnClickSpawnPointBtn);
             _spawnBtn.onClick.AddListener(OnClickSpawnBtn);
+            _networkService.NetworkBehaviourSpawnedEvent += OnSpawnedNetworkBehaviour;
         }
 
         private void OnDestroy()
         {
             _confirmBtn.onClick.RemoveListener(OnClickConfirmBtn);
             _spawnBtn.onClick.RemoveListener(OnClickSpawnBtn);
+            _spawnPointBtn.onClick.RemoveListener(OnClickSpawnPointBtn);
+            _networkService.NetworkBehaviourSpawnedEvent -= OnSpawnedNetworkBehaviour;
         }
 
         private void OnClickConfirmBtn()
@@ -79,21 +83,39 @@ namespace TwoHandThrowing.UI
             _physicMaterial.frictionCombine = _frictionCombineDropdown.GetDropDownEnumValue<PhysicMaterialCombine>();
             _physicMaterial.bounceCombine = _bounceCombineDropdown.GetDropDownEnumValue<PhysicMaterialCombine>();
 
-            _ballConfigurationService.UpdateBallConfiguration(_rigidbody, _physicMaterial);
+            _ballConfigurationService.UpdateRigidBody(_rigidbody);
+            _ballConfigurationService.UpdatePhysicMaterial(_physicMaterial);
+            _ballConfigurationService.UpdateBallLifeTime(_ballLifeTime.Value);
+            _ballConfigurationService.UpdateThrowOnDetach(_smoothingDurationSlider.Value, _velocityScale.Value, _angularVelocityScale.Value);
 
             _isConfirmed = true;
+
+            Debug.Log("Confirmed!");
+        }
+
+        private void OnClickSpawnPointBtn()
+        {
+            _ballSpawnerService.GetSpawnPoint();
+            
+            Debug.Log("Spawn point!");
         }
 
         private void OnClickSpawnBtn()
         {
-            if(!_isConfirmed)
+            if(_networkService.NetworkBehaviour.isServer)
             {
+                if (!_isConfirmed)
+                {
+                    return;
+                }
+
+                _ballSpawnerService.Spawn(_networkService.NetworkBehaviour.netIdentity, Vector3.zero);
                 return;
             }
 
-            _networkService.NetworkBehaviour.CmdSpawn(_networkService.NetworkBehaviour.netIdentity,_spawnPointComponent.GetVector3(), _speedComponent.GetVector3());
+            _networkService.NetworkBehaviour.CmdSpawn(_networkService.NetworkBehaviour.netIdentity, Vector3.zero);
+            Debug.Log("Spawn!");
         }
-
 
         private int TransferBitsToSum(bool[] bitsArray, int offsetValue)
         {
@@ -109,6 +131,17 @@ namespace TwoHandThrowing.UI
             }
 
             return sum;
+        }
+
+        private void OnSpawnedNetworkBehaviour()
+        {
+            if (!_networkService.NetworkBehaviour.isServer)
+            {
+                _spawnPointBtn.enabled = false;
+                _confirmBtn.enabled = false;
+                _spawnPointBtn.image.color = Color.gray;
+                _confirmBtn.image.color = Color.gray;
+            }
         }
     }
 }

@@ -15,11 +15,9 @@ namespace TwoHandThrowing.Network
         }
 
         [Command]
-        public void CmdSpawn(NetworkIdentity owned, Vector3 spawnPoint, Vector3 force)
+        public void CmdSpawn(NetworkIdentity owned, Vector3 force)
         {
-            Debug.Log("here workds!");
-
-            Engine.GetService<BallSpawnerService>().Spawn(owned, spawnPoint, force);
+            Engine.GetService<BallSpawnerService>().Spawn(owned, force);
         }
     }
 }

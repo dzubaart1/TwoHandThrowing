@@ -7,11 +7,9 @@ namespace TwoHandThrowing.Network
 {
     public class NetworkPlayer : NetworkBehaviour
     {
-        public Transform Head => _head;
         public HandData LeftHandData => _leftHandData;
         public HandData RightHandData => _rightHandData;
 
-        [SerializeField] private Transform _head;
         [SerializeField] private HandData _leftHandData;
         [SerializeField] private HandData _rightHandData;
 

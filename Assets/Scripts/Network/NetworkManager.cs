@@ -11,6 +11,7 @@ namespace TwoHandThrowing.Network
         public event Action ServerAddPlayerEvent;
         public event Action ServerStartedEvent;
         public event Action ServerConnectedEvent;
+        public event Action StartClientEvent;
 
         public override void Start()
         {
@@ -24,6 +25,7 @@ namespace TwoHandThrowing.Network
             base.OnStartServer();
 
             SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
+            StartClientEvent?.Invoke();
         }
 
         public override void OnStartServer()

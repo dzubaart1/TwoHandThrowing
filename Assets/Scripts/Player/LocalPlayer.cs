@@ -5,13 +5,11 @@ namespace TwoHandThrowing.Player
 {
     public class LocalPlayer : MonoBehaviour
     {
-        public Transform Head => _head;
         public HandRef LeftHand => _leftHand;
         public HandRef RightHand => _rightHand;
 
         [SerializeField] private HandRef _leftHand;
         [SerializeField] private HandRef _rightHand;
-        [SerializeField] private Transform _head;
 
         private NetworkService _networkService;
 
@@ -32,8 +30,6 @@ namespace TwoHandThrowing.Player
 
             _netLeftHandData.MapTransformWith(LeftHand.HandData);
             _netRightHandData.MapTransformWith(RightHand.HandData);
-
-            MapTransform(Head, _networkService.CurrentNetworkPlayer.Head);
         }
 
         private void MapTransform(Transform from, Transform to)

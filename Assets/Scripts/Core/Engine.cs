@@ -15,10 +15,12 @@ namespace TwoHandThrowing.Core
         {
             Behaviour = new GameObject("RuntimeBehaviour", typeof(RuntimeBehaviour)).GetComponent<RuntimeBehaviour>();
 
-            AddService(new BallConfigurationService());
+            var networkService = new NetworkService();
+            AddService(networkService);
+            AddService(new BallConfigurationService(GetConfiguration<BallUIConfiguration>(), networkService));
             AddService(new BallSpawnerService(GetConfiguration<BallSpawnerConfiguration>()));
             AddService(new InputService(GetConfiguration<InputConfiguration>()));
-            AddService(new NetworkService());
+
 
             foreach(var pair in _services)
             {
