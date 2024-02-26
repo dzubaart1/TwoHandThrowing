@@ -1,9 +1,11 @@
 using UnityEngine;
 using MaterialFactory.Tools;
+using Mirror;
 
 namespace TwoHandThrowing.BallStuff
 {
-    public class Ball : MonoBehaviour
+    [RequireComponent(typeof(Rigidbody))]
+    public class Ball : NetworkBehaviour
     {
         [SerializeField] private Collider _collider;
         [SerializeField] private float _secondsToDestroy = 2f;
@@ -11,6 +13,11 @@ namespace TwoHandThrowing.BallStuff
         private Rigidbody _rigidbody;
 
         private BallConfiguration _ballConfiguration;
+
+        private void Awake()
+        {
+            _rigidbody = GetComponent<Rigidbody>();
+        }
 
         public void AddForce(Vector3 force)
         {
@@ -20,17 +27,7 @@ namespace TwoHandThrowing.BallStuff
         public void SetBallConfiguration(BallConfiguration ballConfiguration)
         {
             _ballConfiguration = ballConfiguration;
-            _rigidbody = gameObject.GetComponent<Rigidbody>();
-
-            if (_rigidbody is null)
-            {
-                _rigidbody = gameObject.AddComponent<Rigidbody>().GetCopyOf(ballConfiguration.RigidBody);
-            }
-            else
-            {
-                _rigidbody = gameObject.GetComponent<Rigidbody>().GetCopyOf(ballConfiguration.RigidBody);
-            }
-
+            _rigidbody.GetCopyOf(ballConfiguration.RigidBody);
             _collider.material = _ballConfiguration.PhysicMaterial;
         }
 

@@ -8,6 +8,11 @@ namespace MaterialFactory.Tools
     {
 		public static T GetCopyOf<T>(this Component comp, T other) where T : Component
 		{
+			if(other is null)
+            {
+				return null;
+            }
+
 			Type type = comp.GetType();
 			if (type != other.GetType())
 			{

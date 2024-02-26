@@ -25,7 +25,7 @@ namespace TwoHandThrowing.Core
             obj.AddComponent<XRUIInputModule>();
             obj.AddComponent<XRInteractionManager>();
 
-            LocalPlayer = Object.Instantiate(Configuration.LocalPlayer, Vector3.zero, Quaternion.identity);
+            LocalPlayer = Object.Instantiate(Configuration.LocalPlayer, new Vector3(0, 1, 0), Quaternion.identity);
         }
 
         public void Destroy()

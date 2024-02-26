@@ -16,7 +16,7 @@ namespace TwoHandThrowing.Core
             Behaviour = new GameObject("RuntimeBehaviour", typeof(RuntimeBehaviour)).GetComponent<RuntimeBehaviour>();
 
             AddService(new BallConfigurationService());
-            AddService(new BallSpawnerService());
+            AddService(new BallSpawnerService(GetConfiguration<BallSpawnerConfiguration>()));
             AddService(new InputService(GetConfiguration<InputConfiguration>()));
             AddService(new NetworkService());
 
@@ -29,7 +29,9 @@ namespace TwoHandThrowing.Core
         ~Engine()
         {
             foreach (var service in _services)
+            {
                 service.Value.Destroy();
+            }
         }
 
         public static T GetConfiguration<T>() where T : Configuration
@@ -40,7 +42,9 @@ namespace TwoHandThrowing.Core
         public static void AddService<T>(T service) where T : IService
         {
             if (_services.ContainsKey(typeof(T)))
+            {
                 return;
+            }
 
             _services.Add(typeof(T), service);
         }
@@ -48,7 +52,9 @@ namespace TwoHandThrowing.Core
         public static T GetService<T>() where T : IService
         {
             if (!_services.ContainsKey(typeof(T)))
+            {
                 throw new Exception("Service doesn't exists.");
+            }
 
             return (T)_services[typeof(T)];
         }

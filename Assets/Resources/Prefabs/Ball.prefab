@@ -1804,6 +1804,8 @@ GameObject:
   - component: {fileID: 3867882816359154889}
   - component: {fileID: 5583977455693510327}
   - component: {fileID: 2757168390836774381}
+  - component: {fileID: 1440487628617130270}
+  - component: {fileID: 6539622175205734941}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -1872,6 +1874,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c72c148d134faf4aafdf01391e89e7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _collider: {fileID: 5967137299853228622}
   _secondsToDestroy: 2
 --- !u!114 &2757168390836774381
@@ -2029,6 +2034,58 @@ MonoBehaviour:
   m_AddDefaultGrabTransformers: 1
   _leftHandAttachTransform: {fileID: 5055401767207945463}
   _rightHandAttachTransform: {fileID: 1974020210240115017}
+--- !u!114 &1440487628617130270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3283133874993506680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clientStarted: 0
+  sceneId: 0
+  _assetId: 3546717099
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
+--- !u!114 &6539622175205734941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3283133874993506680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ff3ba0becae47b8b9381191598957c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 5641441933853614042}
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  coordinateSpace: 0
+  sendIntervalMultiplier: 1
+  timelineOffset: 0
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  onlySyncOnChange: 1
+  onlySyncOnChangeCorrectionMultiplier: 2
+  rotationSensitivity: 0.01
+  compressRotation: 0
+  positionPrecision: 0.01
+  scalePrecision: 0.01
 --- !u!1 &3354449323714583699
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ namespace TwoHandThrowing.Network
     public class NetworkManager : Mirror.NetworkManager
     {
         public event Action ServerAddPlayerEvent;
-        public event Action ServerServerEvent;
+        public event Action ServerStartedEvent;
         public event Action ServerConnectedEvent;
 
         public override void Start()
@@ -19,12 +19,18 @@ namespace TwoHandThrowing.Network
             Engine.GetService<NetworkService>().SetNetworkManager(this);
         }
 
+        public override void OnStartClient()
+        {
+            base.OnStartServer();
+
+            SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
+        }
+
         public override void OnStartServer()
         {
             base.OnStartServer();
 
-            ServerServerEvent?.Invoke();
-            SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
+            ServerStartedEvent?.Invoke(); 
         }
 
         public override void OnServerAddPlayer(NetworkConnectionToClient conn)

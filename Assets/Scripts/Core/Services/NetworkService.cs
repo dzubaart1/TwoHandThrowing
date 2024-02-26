@@ -1,11 +1,13 @@
-﻿using TwoHandThrowing.Network;
+﻿using Mirror;
+using TwoHandThrowing.Network;
 
 namespace TwoHandThrowing.Core
 {
     public class NetworkService : IService
     {
-        public NetworkPlayer CurrentNetworkPlayer;
-        public NetworkManager NetworkManager;
+        public Network.NetworkPlayer CurrentNetworkPlayer { get; private set; }
+        public Network.NetworkManager NetworkManager { get; private set; }
+        public Network.NetworkBehaviour NetworkBehaviour { get; private set; }
 
         public void Initialize()
         {
@@ -15,9 +17,19 @@ namespace TwoHandThrowing.Core
         {
         }
 
-        public void SetNetworkManager(NetworkManager networkManager)
+        public void SetCurrentNetworkPlayer(Network.NetworkPlayer networkPlayer)
+        {
+            CurrentNetworkPlayer = networkPlayer;
+        }
+
+        public void SetNetworkManager(Network.NetworkManager networkManager)
         {
             NetworkManager = networkManager;
+        }
+
+        public void SetNetworkBehaviour(Network.NetworkBehaviour behaviour)
+        {
+            NetworkBehaviour = behaviour;
         }
 
         public void StartHost()

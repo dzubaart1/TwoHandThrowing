@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace TwoHandThrowing.Player
 {
+#if UNITY_EDITOR
     [CustomEditor(typeof(MirrorHandPose))]
     public class EditorMirrorHandPose : Editor
     {
@@ -28,4 +29,5 @@ namespace TwoHandThrowing.Player
             }
         }
     }
+#endif
 }

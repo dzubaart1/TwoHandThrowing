@@ -20,9 +20,9 @@ namespace TwoHandThrowing.Network
         {
             base.OnStartClient();
 
-            if(isOwned)
+            if(isOwned & Engine.GetService<NetworkService>().CurrentNetworkPlayer is null)
             {
-                Engine.GetService<NetworkService>().CurrentNetworkPlayer = this;
+                Engine.GetService<NetworkService>().SetCurrentNetworkPlayer(this);
                 _leftHandData.Renderer.enabled = false;
                 _rightHandData.Renderer.enabled = false;
             }

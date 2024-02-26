@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mirror;
+using System;
 using TwoHandThrowing.BallStuff;
 using UnityEngine;
 
@@ -8,31 +9,31 @@ namespace TwoHandThrowing.Core
     {
         public event Action SpawnEvent;
 
+        public BallSpawnerConfiguration Configuration { get; private set; }
+
         private BallSpawner _ballSpawner;
-        private Vector3 _spawnPoint;
-        private Vector3 _force;
+
+        public BallSpawnerService(BallSpawnerConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
 
         public void Initialize()
         {
             _ballSpawner = new GameObject("Spawner", typeof(BallSpawner)).GetComponent<BallSpawner>();
+            _ballSpawner.SetBallPrefab(Configuration.BallPrefab);
         }
 
         public void Destroy()
         {
         }
 
-        public void Spawn()
+        public void Spawn(NetworkIdentity owner, Vector3 spawnPoint, Vector3 force)
         {
-            _ballSpawner.Spawn(_spawnPoint, _force);
+            var obj = _ballSpawner.Spawn(spawnPoint, force);
+            NetworkServer.Spawn(obj);
+            obj.GetComponent<NetworkBehaviour>().netIdentity.AssignClientAuthority(owner.connectionToClient);
             SpawnEvent?.Invoke();
         }
-
-        public void SetSpawnConfig(Vector3 spawnPoint, Vector3 force)
-        {
-            _spawnPoint = spawnPoint;
-            _force = force;
-        }
-
-
     }
 }

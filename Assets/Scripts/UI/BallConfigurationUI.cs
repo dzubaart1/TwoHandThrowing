@@ -32,6 +32,7 @@ namespace TwoHandThrowing.UI
 
         private BallConfigurationService _ballConfigurationService;
         private BallSpawnerService _ballSpawnerService;
+        private NetworkService _networkService;
 
         private Rigidbody _rigidbody;
         private PhysicMaterial _physicMaterial;
@@ -43,6 +44,7 @@ namespace TwoHandThrowing.UI
         {
             _ballConfigurationService = Engine.GetService<BallConfigurationService>();
             _ballSpawnerService = Engine.GetService<BallSpawnerService>();
+            _networkService = Engine.GetService<NetworkService>();
 
             _rigidbody = _ballConfigurationService.TEMPObject.AddComponent<Rigidbody>();
 
@@ -78,7 +80,6 @@ namespace TwoHandThrowing.UI
             _physicMaterial.bounceCombine = _bounceCombineDropdown.GetDropDownEnumValue<PhysicMaterialCombine>();
 
             _ballConfigurationService.UpdateBallConfiguration(_rigidbody, _physicMaterial);
-            _ballSpawnerService.SetSpawnConfig(_spawnPointComponent.GetVector3(), _speedComponent.GetVector3());
 
             _isConfirmed = true;
         }
@@ -90,7 +91,7 @@ namespace TwoHandThrowing.UI
                 return;
             }
 
-            _ballSpawnerService.Spawn();
+            _networkService.NetworkBehaviour.CmdSpawn(_networkService.NetworkBehaviour.netIdentity,_spawnPointComponent.GetVector3(), _speedComponent.GetVector3());
         }
 
 
