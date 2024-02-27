@@ -1,4 +1,5 @@
-﻿using TwoHandThrowing.Core;
+﻿using System;
+using TwoHandThrowing.Core;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -6,6 +7,8 @@ namespace TwoHandThrowing.Player
 {
     public class HandGrabInteractable : XRGrabInteractable
     {
+        public event Action<SelectEnterEventArgs> SelectEnteringEvent;
+
         [SerializeField] private Transform _leftHandAttachTransform;
         [SerializeField] private Transform _rightHandAttachTransform;
         
@@ -16,9 +19,9 @@ namespace TwoHandThrowing.Player
 
         protected override void Awake()
         {
-            _inputService = Engine.GetService<InputService>();
-
             base.Awake();
+
+            _inputService = Engine.GetService<InputService>();
         }
 
         private void Start()
@@ -46,6 +49,7 @@ namespace TwoHandThrowing.Player
             }
 
             base.OnSelectEntering(args);
+            SelectEnteringEvent?.Invoke(args);
         }
 
         protected override void OnSelectExiting(SelectExitEventArgs args)

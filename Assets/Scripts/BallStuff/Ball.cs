@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using MaterialFactory.Tools;
 using Mirror;
@@ -43,7 +44,13 @@ namespace TwoHandThrowing.BallStuff
 
         public void DestroyBall()
         {
-            Destroy(gameObject, _lifeTime);
+            StartCoroutine(DestroyCoroutine());
+        }
+
+        private IEnumerator DestroyCoroutine()
+        {
+            yield return new WaitForSeconds(_lifeTime);
+            NetworkServer.Destroy(gameObject);
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace TwoHandThrowing.UI
 {
-    public class NetworkConnectionUI : MonoBehaviour
+    public class ConnectionUI : MonoBehaviour
     {
         [SerializeField] private Button _clientBtn;
         [SerializeField] private Button _hostBtn;
@@ -28,11 +28,13 @@ namespace TwoHandThrowing.UI
         private void OnClickClientBtn()
         {
             _networkService.StartClient();
+            gameObject.SetActive(false);
         }
 
         private void OnClickHostBtn()
         {
             _networkService.StartHost();
+            gameObject.SetActive(false);
         }
     }
 }

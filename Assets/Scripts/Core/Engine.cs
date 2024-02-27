@@ -20,8 +20,7 @@ namespace TwoHandThrowing.Core
             AddService(new BallConfigurationService(GetConfiguration<BallUIConfiguration>(), networkService));
             AddService(new BallSpawnerService(GetConfiguration<BallSpawnerConfiguration>()));
             AddService(new InputService(GetConfiguration<InputConfiguration>()));
-
-
+            
             foreach(var pair in _services)
             {
                 pair.Value.Initialize();

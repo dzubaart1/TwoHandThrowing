@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bd57075c93ecd24a82cf704bc9598dc, type: 3}
   m_Name: BallSpawnerConfiguration
   m_EditorClassIdentifier: 
-  BallPrefab: {fileID: 5583977455693510327, guid: 511e28243ae706544b983df123111175, type: 3}
+  BallPrefab: {fileID: 413294014116701836, guid: 8c8fe5f55ea80c54a8dae2fd1de53b97, type: 3}
   SpawnPointPrefab: {fileID: 3685411506107330722, guid: 142a8095473eec5468c281cbca90c494, type: 3}

@@ -27,12 +27,6 @@ namespace TwoHandThrowing.Player
         {
             MapTransform(fromHand.Root, Root);
             MapTransform(fromHand.Root.parent, Root.parent);
-
-
-            for (int i = 0; i < Bones.Length; i++)
-            {
-                Bones[i].localRotation = fromHand.Bones[i].localRotation;
-            }
         }
 
         private void MapTransform(Transform from, Transform to)

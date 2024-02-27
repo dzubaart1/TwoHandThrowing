@@ -53,15 +53,12 @@ namespace TwoHandThrowing.Player
             var handRef = args.interactorObject.transform.GetComponent<HandRef>();
             if (handRef is null || handRef.HandData.HandType != _handDataPose.HandType)
             {
-                Debug.Log($"NONE {handRef is null} {handRef.HandData.HandType != _handDataPose.HandType}");
                 return;
             }
-
-            Debug.Log($"OK {handRef is null} {handRef.HandData.HandType != _handDataPose.HandType}");
+            
             _handVisual.enabled = false;
             _handDataPose.Renderer.enabled = true;
-
-
+            
             /*handRef.HandData.Animator.enabled = false;
             handRef.HandData.Root.parent.localRotation = _handDataPose.Root.localRotation;
             for(int i = 0; i < _handDataPose.Bones.Length; i++)
