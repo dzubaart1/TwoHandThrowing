@@ -12,8 +12,8 @@ namespace TwoHandThrowing.Player
         [SerializeField] private Transform _leftHandAttachTransform;
         [SerializeField] private Transform _rightHandAttachTransform;
         
-        private XRDirectInteractor _rightInteractor;
-        private XRDirectInteractor _leftInteractor;
+        private HandRef _rightHand;
+        private HandRef _leftHand;
 
         private InputService _inputService;
 
@@ -26,26 +26,28 @@ namespace TwoHandThrowing.Player
 
         private void Start()
         {
-            _rightInteractor = _inputService.LocalPlayer.RightHand.XRDirectInteractor;
-            _leftInteractor = _inputService.LocalPlayer.LeftHand.XRDirectInteractor;
+            _rightHand = _inputService.LocalPlayer.RightHand;
+            _leftHand = _inputService.LocalPlayer.LeftHand;
         }
 
         protected override void OnSelectEntering(SelectEnterEventArgs args)
         {
-            if(interactorsSelecting.Count == 1)
+            if (args.interactorObject.Equals(_leftHand.Interactor))
             {
-                base.OnSelectEntering(args);
-                return;
+                if (interactorsSelecting.Count != 1)
+                {
+                    attachTransform.SetPositionAndRotation(_leftHandAttachTransform.position, _leftHandAttachTransform.rotation);
+                }
+                _leftHand.Collision.TurnOffColliders();
             }
 
-            if (args.interactorObject.Equals(_leftInteractor))
+            if(args.interactorObject.Equals(_rightHand.Interactor))
             {
-                attachTransform.SetPositionAndRotation(_leftHandAttachTransform.position, _leftHandAttachTransform.rotation);
-            }
-
-            if(args.interactorObject.Equals(_rightInteractor))
-            {
-                attachTransform.SetPositionAndRotation(_rightHandAttachTransform.position, _rightHandAttachTransform.rotation);
+                if (interactorsSelecting.Count != 1)
+                {
+                    attachTransform.SetPositionAndRotation(_rightHandAttachTransform.position, _rightHandAttachTransform.rotation);
+                }
+                _rightHand.Collision.TurnOffColliders();
             }
 
             base.OnSelectEntering(args);
@@ -54,20 +56,22 @@ namespace TwoHandThrowing.Player
 
         protected override void OnSelectExiting(SelectExitEventArgs args)
         {
-            if(interactorsSelecting.Count == 1)
+            if (args.interactorObject.Equals(_leftHand.Interactor))
             {
-                base.OnSelectExiting(args);
-                return;
+                if (interactorsSelecting.Count != 1)
+                {
+                    attachTransform.SetPositionAndRotation(_rightHandAttachTransform.position, _rightHandAttachTransform.rotation);
+                }
+                _leftHand.Collision.TurnOnColliders();
             }
 
-            if (args.interactorObject.Equals(_leftInteractor))
+            if (args.interactorObject.Equals(_rightHand.Interactor))
             {
-                attachTransform.SetPositionAndRotation(_rightHandAttachTransform.position, _rightHandAttachTransform.rotation);
-            }
-
-            if (args.interactorObject.Equals(_rightInteractor))
-            {
-                attachTransform.SetPositionAndRotation(_leftHandAttachTransform.position, _leftHandAttachTransform.rotation);
+                if (interactorsSelecting.Count != 1)
+                {
+                    attachTransform.SetPositionAndRotation(_leftHandAttachTransform.position, _leftHandAttachTransform.rotation);
+                }
+                _rightHand.Collision.TurnOnColliders();
             }
 
             base.OnSelectExiting(args);

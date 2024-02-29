@@ -1,4 +1,4 @@
-﻿using MaterialFactory.Tools;
+﻿using TwoHandThrowing.Core;
 using UnityEngine;
 
 namespace TwoHandThrowing.Player
@@ -6,7 +6,8 @@ namespace TwoHandThrowing.Player
     public class HandData : MonoBehaviour
     {
         public HandType HandType;
-
+        
+        public HandDataType HandDataType { get; private set; }
         public SkinnedMeshRenderer Renderer => _renderer;
         public Animator Animator => _animator;
         public Transform Root => _root;
@@ -33,6 +34,23 @@ namespace TwoHandThrowing.Player
         {
             to.rotation = from.rotation;
             to.position = from.position;
+        }
+        
+        
+        public void UpdateHandDataSettings(HandDataSettings settings)
+        {
+            switch (HandType)
+            {
+                case HandType.Left:
+                    Animator.runtimeAnimatorController = settings.LeftHandAnimatorController;
+                    break;
+                case HandType.Right:
+                    Animator.runtimeAnimatorController = settings.RightHandAnimatorController;
+                    break;
+            }
+            
+            Renderer.material = settings.HandMaterial;
+            HandDataType = settings.HandDataType;
         }
     }
 

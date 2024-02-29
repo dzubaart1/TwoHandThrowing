@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.Core.Services;
 using UnityEngine;
 
 namespace TwoHandThrowing.Core
@@ -20,6 +21,7 @@ namespace TwoHandThrowing.Core
             AddService(new BallConfigurationService(GetConfiguration<BallUIConfiguration>(), networkService));
             AddService(new BallSpawnerService(GetConfiguration<BallSpawnerConfiguration>()));
             AddService(new InputService(GetConfiguration<InputConfiguration>()));
+            AddService(new HandDataService(GetConfiguration<HandDataConfiguration>()));
             
             foreach(var pair in _services)
             {

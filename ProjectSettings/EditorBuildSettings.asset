@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 6dba7ef292cb3624ba9b12cb0c9c5d7d
   - enabled: 1
+    path: Assets/Scenes/GoalkeeperGame.unity
+    guid: a007ac6cc551e674d800fd27ed52e196
+  - enabled: 1
     path: Assets/Scenes/DistanceGame.unity
     guid: e597449079f724243be8841aa9239de6
   - enabled: 1
