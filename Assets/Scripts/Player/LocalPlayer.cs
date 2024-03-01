@@ -31,11 +31,5 @@ namespace TwoHandThrowing.Player
             _netLeftHandData.MapTransformWith(LeftHand.HandData);
             _netRightHandData.MapTransformWith(RightHand.HandData);
         }
-
-        private void MapTransform(Transform from, Transform to)
-        {
-            to.rotation = from.rotation;
-            to.position = from.position;
-        }
     }
 }

@@ -33,8 +33,6 @@ namespace TwoHandThrowing.Network
         [Command(requiresAuthority = false)]
         public void CmdPickup(NetworkConnectionToClient sender = null)
         {
-            Debug.Log("Mirror CmdPickup owner set to: " + sender.identity);
-
             ResetInteractableVelocity();
 
             if (sender != netIdentity.connectionToClient)

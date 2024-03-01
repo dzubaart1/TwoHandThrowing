@@ -37,4 +37,12 @@ public class HandCollision : MonoBehaviour
         
         _rigidbody.WakeUp();
     }
+
+    public void UpdatePhysicMaterial(PhysicMaterial physicMaterial)
+    {
+        foreach (var collider in _handColliders)
+        {
+            collider.material = physicMaterial;
+        }
+    }
 }

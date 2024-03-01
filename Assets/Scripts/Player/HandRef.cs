@@ -1,7 +1,4 @@
-﻿using System;
-using Assets.Scripts.Core.Services;
-using TwoHandThrowing.Core;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace TwoHandThrowing.Player
@@ -16,22 +13,11 @@ namespace TwoHandThrowing.Player
         [SerializeField] private HandCollision _collision;
         public HandData HandData => _handData;
         [SerializeField] private HandData _handData;
-
-        private HandDataService _handDataService;
-
+        
         private void Awake()
         {
-            _handDataService = Engine.GetService<HandDataService>();
-            
             Interactor = GetComponent<XRDirectInteractor>();
             Controller = GetComponent<ActionBasedController>();
         }
-
-        public void ChangeHandData(HandDataType handDataType)
-        {
-            var settings = _handDataService.GetSettingsByType(handDataType);
-            _handData.UpdateHandDataSettings(settings);
-        }
-
     }
 }

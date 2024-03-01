@@ -1,4 +1,4 @@
-using System;
+using Assets.Scripts.Core.Services;
 using JetBrains.Annotations;
 using TwoHandThrowing.Core;
 using TwoHandThrowing.Player;
@@ -8,21 +8,23 @@ public class HandChanger : MonoBehaviour
 {
     [SerializeField] private HandDataType _handDataType;
 
+    private HandDataConfigurationService _handDataService;
+
+    private void Awake()
+    {
+        _handDataService = Engine.GetService<HandDataConfigurationService>();
+    }
 
     private void OnTriggerEnter(Collider col)
     {
-        var handRef = FindComponentInParents<HandRef>(col.transform);
-
-        Debug.Log("Here1");
+        var handRef = FindComponentInParents<HandRef>(col.transform); ;
         
         if (handRef is null)
         {
             return;
         }
-        
-        Debug.Log("Here2");
-        
-        handRef.ChangeHandData(_handDataType);
+
+        handRef.HandData.UpdateHandDataSettings(_handDataService.GetSettingsByType(_handDataType));
     }
 
     [CanBeNull]

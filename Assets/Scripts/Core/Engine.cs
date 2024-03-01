@@ -9,7 +9,7 @@ namespace TwoHandThrowing.Core
     {
         public static RuntimeBehaviour Behaviour { get; set; }
 
-        private static Dictionary<Type, IService> _services = new Dictionary<Type, IService>();
+        private static Dictionary<Type, IService> _services = new();
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void Initialize()
@@ -17,12 +17,14 @@ namespace TwoHandThrowing.Core
             Behaviour = new GameObject("RuntimeBehaviour", typeof(RuntimeBehaviour)).GetComponent<RuntimeBehaviour>();
 
             var networkService = new NetworkService();
-            AddService(networkService);
-            AddService(new BallConfigurationService(GetConfiguration<BallUIConfiguration>(), networkService));
-            AddService(new BallSpawnerService(GetConfiguration<BallSpawnerConfiguration>()));
-            AddService(new InputService(GetConfiguration<InputConfiguration>()));
-            AddService(new HandDataService(GetConfiguration<HandDataConfiguration>()));
+            var inputService = new InputService(GetConfiguration<InputConfiguration>());
             
+            AddService(networkService);
+            AddService(inputService);
+            AddService(new BallConfigurationService(GetConfiguration<BallUIConfiguration>(), networkService));
+            AddService(new HandDataConfigurationService(GetConfiguration<HandDataConfiguration>()));
+            AddService(new BallSpawnerService(GetConfiguration<BallSpawnerConfiguration>()));
+
             foreach(var pair in _services)
             {
                 pair.Value.Initialize();

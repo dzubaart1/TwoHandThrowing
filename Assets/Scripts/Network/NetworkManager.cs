@@ -38,10 +38,8 @@ namespace TwoHandThrowing.Network
         public override void OnServerAddPlayer(NetworkConnectionToClient conn)
         {
             var netPlayer = Instantiate(playerPrefab).GetComponent<NetworkPlayer>();
-
             NetworkServer.AddPlayerForConnection(conn, netPlayer.gameObject);
-            Debug.Log("Spawn net");
-
+            
             ServerAddPlayerEvent?.Invoke();
         }
 

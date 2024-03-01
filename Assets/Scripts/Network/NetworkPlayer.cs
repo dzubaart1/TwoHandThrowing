@@ -1,4 +1,3 @@
-using Mirror;
 using TwoHandThrowing.Core;
 using TwoHandThrowing.Player;
 using UnityEngine;
@@ -12,8 +11,7 @@ namespace TwoHandThrowing.Network
 
         [SerializeField] private HandData _leftHandData;
         [SerializeField] private HandData _rightHandData;
-
-
+        
         public override void OnStartClient()
         {
             base.OnStartClient();
@@ -24,11 +22,6 @@ namespace TwoHandThrowing.Network
                 _leftHandData.Renderer.enabled = false;
                 _rightHandData.Renderer.enabled = false;
             }
-        }
-        public override void OnStartLocalPlayer()
-        {
-            base.OnStartLocalPlayer();
-
         }
     }
 }

@@ -89,15 +89,11 @@ namespace TwoHandThrowing.UI
             _ballConfigurationService.UpdateThrowOnDetach(_smoothingDurationSlider.Value, _velocityScale.Value, _angularVelocityScale.Value);
 
             _isConfirmed = true;
-
-            Debug.Log("Confirmed!");
         }
 
         private void OnClickSpawnPointBtn()
         {
             _ballSpawnerService.GetSpawnPoint();
-            
-            Debug.Log("Spawn point!");
         }
 
         private void OnClickSpawnBtn()
@@ -114,7 +110,6 @@ namespace TwoHandThrowing.UI
             }
 
             _networkService.NetworkBehaviour.CmdSpawn(_networkService.NetworkBehaviour.netIdentity, Vector3.zero);
-            Debug.Log("Spawn!");
         }
 
         private int TransferBitsToSum(bool[] bitsArray, int offsetValue)
