@@ -5,15 +5,14 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 namespace TwoHandThrowing.Player
 {
-    [RequireComponent(typeof(Rigidbody))]
     public class HandData : MonoBehaviour
     {
         public HandType HandType = HandType.Left;
-        public float MinVelocityToAttach = 1;
+        public float MaxVelocityToAttach = 1;
         public HandDataType HandDataType { get; private set; }
-        public Rigidbody Rigidbody { get; private set; }
         public Animator Animator { get; private set; }
 
+        public Rigidbody Rigidbody => _rigidbody;
         public SkinnedMeshRenderer Renderer => _renderer;
         public Transform Root => _root;
         public Transform[] Bones => _bones;
@@ -21,13 +20,15 @@ namespace TwoHandThrowing.Player
         [SerializeField] private Transform _root;
         [SerializeField] private Transform[] _bones;
         [SerializeField] private SkinnedMeshRenderer _renderer;
+        [SerializeField] private Rigidbody _rigidbody;
 
         private InputService _inputService;
         
         private void Awake()
         {
             Animator = GetComponent<Animator>();
-            Rigidbody = GetComponent<Rigidbody>();
+
+            _inputService = Engine.GetService<InputService>();
         }
 
         public void MapTransformWith(HandData fromHand)
@@ -77,7 +78,7 @@ namespace TwoHandThrowing.Player
                 return;
             }
             
-            if (ball.Rigidbody.velocity.sqrMagnitude > MinVelocityToAttach)
+            if (ball.Rigidbody.velocity.sqrMagnitude > MaxVelocityToAttach)
             {
                 return;
             }

@@ -4212,6 +4212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HandType: 0
+  MaxVelocityToAttach: 1
   _root: {fileID: 5554586997351306883}
   _bones:
   - {fileID: 2280206321490237694}
@@ -4232,6 +4233,7 @@ MonoBehaviour:
   - {fileID: 4218350071538196340}
   - {fileID: 7259024506074247944}
   _renderer: {fileID: 3820923060259533448}
+  _rigidbody: {fileID: 0}
 --- !u!1 &5479110184299766656
 GameObject:
   m_ObjectHideFlags: 0
@@ -4978,6 +4980,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HandType: 1
+  MaxVelocityToAttach: 1
   _root: {fileID: 3237088423512598188}
   _bones:
   - {fileID: 4720654228261774350}
@@ -4998,6 +5001,7 @@ MonoBehaviour:
   - {fileID: 2391767548417191683}
   - {fileID: 8114134805695976762}
   _renderer: {fileID: 7835927401385821632}
+  _rigidbody: {fileID: 0}
 --- !u!1 &6365857766853851391
 GameObject:
   m_ObjectHideFlags: 0

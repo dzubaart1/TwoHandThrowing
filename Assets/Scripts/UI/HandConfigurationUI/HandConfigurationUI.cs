@@ -1,4 +1,3 @@
-using System;
 using Assets.Scripts.Core.Services;
 using TwoHandThrowing.Core;
 using UnityEngine;
@@ -16,7 +15,7 @@ namespace TwoHandThrowing.UI
 
         [Space]
         [Header("Others")]
-        [SerializeField] private SliderComponent _minVelocityToAttach;
+        [SerializeField] private SliderComponent _maxVelocityToAttach;
         [SerializeField] private Button _confirmBtn;
 
         private PhysicMaterial _physicMaterial;
@@ -30,6 +29,8 @@ namespace TwoHandThrowing.UI
 
             _handDataService = Engine.GetService<HandDataConfigurationService>();
             _inputService = Engine.GetService<InputService>();
+            
+            _physicMaterial = new PhysicMaterial();
         }
 
         private void OnDestroy()
@@ -39,16 +40,14 @@ namespace TwoHandThrowing.UI
 
         private void OnClickConfirmBtn()
         {
-            _physicMaterial = new PhysicMaterial();
-            
             _physicMaterial.dynamicFriction = _dynamicFrictionSlider.Value;
             _physicMaterial.staticFriction = _staticFrictionSlider.Value;
             _physicMaterial.bounciness = _bouncinessSlider.Value;
             _physicMaterial.frictionCombine = _frictionCombineDropdown.GetDropDownEnumValue<PhysicMaterialCombine>();
             _physicMaterial.bounceCombine = _bounceCombineDropdown.GetDropDownEnumValue<PhysicMaterialCombine>();
             
-            _handDataService.UpdateHandConfig(_physicMaterial, _minVelocityToAttach.Value, _inputService.LocalPlayer.LeftHand);
-            _handDataService.UpdateHandConfig(_physicMaterial, _minVelocityToAttach.Value, _inputService.LocalPlayer.RightHand);
+            _handDataService.UpdateHandConfig(_physicMaterial, _maxVelocityToAttach.Value, _inputService.LocalPlayer.LeftHand);
+            _handDataService.UpdateHandConfig(_physicMaterial, _maxVelocityToAttach.Value, _inputService.LocalPlayer.RightHand);
         }
     }
     

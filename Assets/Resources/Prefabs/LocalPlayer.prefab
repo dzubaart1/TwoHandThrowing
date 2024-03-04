@@ -431,11 +431,11 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 1.5
-  m_Radius: 0.3
+  m_Height: 0.8
+  m_Radius: 0.1
   m_SlopeLimit: 90
   m_StepOffset: 0
-  m_SkinWidth: 0.3
+  m_SkinWidth: 0.1
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &-6507855705947775095
@@ -2698,7 +2698,7 @@ Transform:
   m_GameObject: {fileID: 8276282374041235758}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.272, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2755,6 +2755,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1751781328153643808, guid: 8da974ca3cfa1e544946f8f4687e5aba, type: 3}
+      propertyPath: _rigidbody
+      value: 
+      objectReference: {fileID: 5631546276639889311}
     - target: {fileID: 4743730636447372607, guid: 8da974ca3cfa1e544946f8f4687e5aba, type: 3}
       propertyPath: m_Name
       value: OculusHand_R
@@ -2791,6 +2795,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08806a72083e375429afa745a537a0b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &5631546276639889311 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 8002563640691775889, guid: 8da974ca3cfa1e544946f8f4687e5aba, type: 3}
+  m_PrefabInstance: {fileID: 2389604608388926990}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4092939245349352301
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2843,6 +2852,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OculusHand_L
       objectReference: {fileID: 0}
+    - target: {fileID: 7334108941158856299, guid: 85333992771fdc348acdc51f35cc9dac, type: 3}
+      propertyPath: _rigidbody
+      value: 
+      objectReference: {fileID: 8544601336701518531}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2873,5 +2886,10 @@ MonoBehaviour:
 --- !u!4 &8442276210988204425 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5613165133466661604, guid: 85333992771fdc348acdc51f35cc9dac, type: 3}
+  m_PrefabInstance: {fileID: 4092939245349352301}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &8544601336701518531 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 5645701018758001070, guid: 85333992771fdc348acdc51f35cc9dac, type: 3}
   m_PrefabInstance: {fileID: 4092939245349352301}
   m_PrefabAsset: {fileID: 0}
