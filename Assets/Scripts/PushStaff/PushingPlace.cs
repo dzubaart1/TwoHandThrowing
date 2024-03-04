@@ -6,24 +6,24 @@ namespace TwoHandThrowing.PushStaff
 {
     public class PushingPlace : MonoBehaviour
     {
-        [SerializeField] private PushPoint _pushPointPrefab;
+        [SerializeField] private Transform _pushPointPrefab;
 
         private Transform _pushPointsHolder;
 
-        private Dictionary<Ball, PushPoint> _recorededBallsDict;
+        private Dictionary<Ball, Transform> _recorededBallsDict;
 
         private void Awake()
         {
             _pushPointsHolder = new GameObject("PushPointsHolder").GetComponent<Transform>();
 
-            _recorededBallsDict = new Dictionary<Ball, PushPoint>();
+            _recorededBallsDict = new Dictionary<Ball, Transform>();
         }
 
         private void OnCollisionEnter(Collision collision)
         {
             Ball ball = collision.transform.GetComponent<Ball>();
 
-            if (ball is null)
+            if (ball == null)
             {
                 return;
             }
@@ -33,13 +33,13 @@ namespace TwoHandThrowing.PushStaff
                 return;
             }
 
-            PushPoint pushPoint = SpawnPushPoint(collision.GetContact(0));
+            Transform pushPoint = SpawnPushPoint(collision.GetContact(0));
             _recorededBallsDict.Add(ball, pushPoint);
 
-            ball.DestroyBall();
+            Destroy(ball);
         }
 
-        private PushPoint SpawnPushPoint(ContactPoint point)
+        private Transform SpawnPushPoint(ContactPoint point)
         {
             return Instantiate(_pushPointPrefab, point.point, Quaternion.identity, _pushPointsHolder);
         }

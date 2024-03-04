@@ -1,26 +1,30 @@
-﻿using TwoHandThrowing.BallStuff;
+﻿using System;
+using TwoHandThrowing.BallStuff;
 using TwoHandThrowing.Core;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace TwoHandThrowing.Player
 {
+    [RequireComponent(typeof(Animator))]
     public class HandData : MonoBehaviour
     {
+        [Header("Hand Config")]
         public HandType HandType = HandType.Left;
         public float MaxVelocityToAttach = 1;
+        
         public HandDataType HandDataType { get; private set; }
         public Animator Animator { get; private set; }
-
-        public Rigidbody Rigidbody => _rigidbody;
+        
         public SkinnedMeshRenderer Renderer => _renderer;
         public Transform Root => _root;
         public Transform[] Bones => _bones;
-
+        
+        [Space]
+        [Header("Bones")]
         [SerializeField] private Transform _root;
         [SerializeField] private Transform[] _bones;
         [SerializeField] private SkinnedMeshRenderer _renderer;
-        [SerializeField] private Rigidbody _rigidbody;
 
         private InputService _inputService;
         
@@ -31,7 +35,7 @@ namespace TwoHandThrowing.Player
             _inputService = Engine.GetService<InputService>();
         }
 
-        public void MapTransformWith(HandData fromHand)
+        public void MapTransformWithHand(HandData fromHand)
         {
             MapTransform(fromHand.Root, Root);
             MapTransform(fromHand.Root.parent, Root.parent);
@@ -55,29 +59,31 @@ namespace TwoHandThrowing.Player
                     break;
             }
             
-            Renderer.material = settings.HandMaterial;
+            Renderer.sharedMaterial = settings.HandMaterial;
             HandDataType = settings.HandDataType;
         }
 
-        public void TryGrabBall(Ball ball)
+        private void OnCollisionEnter(Collision collision)
         {
-            HandRef handRef = _inputService.LocalPlayer.LeftHand;
+            var ball = collision.gameObject.GetComponent<Ball>();
+
+            if (ball == null)
+            {
+                return;
+            }
             
-            if (HandType is HandType.Right)
+            HandRef handRef = _inputService.LocalPlayer.LeftHand;
+            if (HandType == HandType.Right)
             {
                 handRef = _inputService.LocalPlayer.RightHand;
             }
 
-            if (!handRef.Controller.selectAction.action.inProgress)
+            if (!handRef.Controller.selectAction.action.inProgress |
+                handRef.HandData.HandDataType != HandDataType.Goalkeeper)
             {
                 return;
             }
 
-            if (handRef.HandData.HandDataType is not HandDataType.Goalkeeper)
-            {
-                return;
-            }
-            
             if (ball.Rigidbody.velocity.sqrMagnitude > MaxVelocityToAttach)
             {
                 return;

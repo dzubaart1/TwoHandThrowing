@@ -20,16 +20,16 @@ namespace TwoHandThrowing.Player
 
         private void Update()
         {
-            if (_networkService.CurrentNetworkPlayer is null)
+            if (_networkService.CurrentNetworkPlayer == null)
             {
                 return;
             }
 
-            var _netLeftHandData = _networkService.CurrentNetworkPlayer.LeftHandData;
-            var _netRightHandData = _networkService.CurrentNetworkPlayer.RightHandData;
+            HandData netLeftHandData = _networkService.CurrentNetworkPlayer.LeftHandData;
+            HandData netRightHandData = _networkService.CurrentNetworkPlayer.RightHandData;
 
-            _netLeftHandData.MapTransformWith(LeftHand.HandData);
-            _netRightHandData.MapTransformWith(RightHand.HandData);
+            netLeftHandData.MapTransformWithHand(LeftHand.HandData);
+            netRightHandData.MapTransformWithHand(RightHand.HandData);
         }
     }
 }

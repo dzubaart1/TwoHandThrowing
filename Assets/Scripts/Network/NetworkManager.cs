@@ -1,7 +1,6 @@
 ﻿using Mirror;
 using System;
 using TwoHandThrowing.Core;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace TwoHandThrowing.Network
@@ -13,18 +12,26 @@ namespace TwoHandThrowing.Network
         public event Action ServerConnectedEvent;
         public event Action StartClientEvent;
 
+        private NetworkService _networkService;
+
+        public override void Awake()
+        {
+            base.Awake();
+
+            _networkService = Engine.GetService<NetworkService>();
+        }
+
         public override void Start()
         {
             base.Start();
 
-            Engine.GetService<NetworkService>().SetNetworkManager(this);
+            _networkService.SetNetworkManager(this);
         }
 
         public override void OnStartClient()
         {
             base.OnStartServer();
-
-            SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
+            
             StartClientEvent?.Invoke();
         }
 
@@ -37,7 +44,7 @@ namespace TwoHandThrowing.Network
 
         public override void OnServerAddPlayer(NetworkConnectionToClient conn)
         {
-            var netPlayer = Instantiate(playerPrefab).GetComponent<NetworkPlayer>();
+            NetworkPlayer netPlayer = Instantiate(playerPrefab).GetComponent<NetworkPlayer>();
             NetworkServer.AddPlayerForConnection(conn, netPlayer.gameObject);
             
             ServerAddPlayerEvent?.Invoke();

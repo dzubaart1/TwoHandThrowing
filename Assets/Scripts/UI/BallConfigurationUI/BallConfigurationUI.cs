@@ -130,13 +130,15 @@ namespace TwoHandThrowing.UI
 
         private void OnSpawnedNetworkBehaviour()
         {
-            if (!_networkService.NetworkBehaviour.isServer)
+            if (_networkService.NetworkBehaviour.isServer)
             {
-                _spawnPointBtn.enabled = false;
-                _confirmBtn.enabled = false;
-                _spawnPointBtn.image.color = Color.gray;
-                _confirmBtn.image.color = Color.gray;
+                return;
             }
+            
+            _spawnPointBtn.enabled = false;
+            _confirmBtn.enabled = false;
+            _spawnPointBtn.image.color = Color.gray;
+            _confirmBtn.image.color = Color.gray;
         }
     }
 }

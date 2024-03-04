@@ -1,4 +1,5 @@
-﻿using TwoHandThrowing.Core;
+﻿using JetBrains.Annotations;
+using TwoHandThrowing.Core;
 using TwoHandThrowing.Player;
 using UnityEngine;
 
@@ -15,15 +16,13 @@ namespace Assets.Scripts.Core.Services
 
         public void Initialize()
         {
+            // Nothing to initialize
         }
-        
-        public void Destroy()
-        {
-        }
-        
+
+        [CanBeNull]
         public HandDataSettings GetSettingsByType(HandDataType handDataType)
         {
-            return Configuration.HandDataSettings.Find(setting => setting.HandDataType.Equals(handDataType));
+            return Configuration.FindHandDataSettings(handDataType);
         }
         
         public void UpdateHandConfig(PhysicMaterial physicMaterial, float maxVelocityToAttach, HandRef handRef)

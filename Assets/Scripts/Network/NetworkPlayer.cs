@@ -16,7 +16,7 @@ namespace TwoHandThrowing.Network
         {
             base.OnStartClient();
 
-            if(isOwned & Engine.GetService<NetworkService>().CurrentNetworkPlayer is null)
+            if(isOwned & Engine.GetService<NetworkService>().CurrentNetworkPlayer == null)
             {
                 Engine.GetService<NetworkService>().SetCurrentNetworkPlayer(this);
                 _leftHandData.Renderer.enabled = false;

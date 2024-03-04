@@ -17,9 +17,9 @@ public class HandChanger : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-        var handRef = FindComponentInParents<HandRef>(col.transform); ;
+        HandRef handRef = FindComponentInParents<HandRef>(col.transform); ;
         
-        if (handRef is null)
+        if (handRef == null)
         {
             return;
         }
@@ -30,12 +30,12 @@ public class HandChanger : MonoBehaviour
     [CanBeNull]
     private TComp FindComponentInParents<TComp>(Transform obj) where TComp : Component
     {
-        if (obj is null)
+        if (obj == null)
         {
             return null;
         }
         
-        var comp = obj.GetComponentInParent<TComp>();
+        TComp comp = obj.GetComponentInParent<TComp>();
 
         return comp ? comp : FindComponentInParents<TComp>(obj.parent);
     }

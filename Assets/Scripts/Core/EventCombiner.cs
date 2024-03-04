@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TwoHandThrowing.Core
 {
-    public class RuntimeBehaviour : MonoBehaviour
+    public class EventCombiner : MonoBehaviour
     {
         public event Action BehaviourUpdateEvent;
         public event Action BehaviourLateUpdateEvent;

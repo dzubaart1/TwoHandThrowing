@@ -5,17 +5,8 @@ namespace TwoHandThrowing.Core
 {
     public class BallConfigurationService : IService
     {
-        public BallUIConfiguration Configuration { get; private set; }
-
         public BallConfiguration BallConfiguration { get; private set; }
         public GameObject TEMPObject;
-
-        private NetworkService _networkService;
-        public BallConfigurationService(BallUIConfiguration configuration, NetworkService networkService)
-        {
-            Configuration = configuration;
-            _networkService = networkService;
-        }
 
         public void Initialize()
         {
@@ -23,13 +14,6 @@ namespace TwoHandThrowing.Core
 
             TEMPObject = new GameObject("TEMP");
             TEMPObject.SetActive(false);
-
-
-            _networkService.StartClientEvent += OnStartClient;
-        }
-
-        public void Destroy()
-        {
         }
 
         public void UpdateThrowOnDetach(float smoothingDurationSlider, float velocityScale, float angularVelocityScale)
@@ -52,11 +36,6 @@ namespace TwoHandThrowing.Core
         public void UpdateBallLifeTime(float lifeTime)
         {
             BallConfiguration.LifeTime = lifeTime;
-        }
-
-        private void OnStartClient()
-        {
-            Object.Instantiate(Configuration.UI);
         }
     }
 }

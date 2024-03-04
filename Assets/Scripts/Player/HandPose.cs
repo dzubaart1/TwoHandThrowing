@@ -9,7 +9,7 @@ namespace TwoHandThrowing.Player
         [SerializeField] private GameObject _attachPointPrefab;
         [SerializeField] private Transform _wrist;
         [SerializeField] private HandGrabInteractable _handGrabInteractable;
-        [SerializeField] private HandData _handDataPose;
+        [SerializeField] private GhostHandData _ghostHandData;
 
         private SkinnedMeshRenderer _handVisual;
 
@@ -22,7 +22,7 @@ namespace TwoHandThrowing.Player
 
         private void Start()
         {
-            switch(_handDataPose.HandType)
+            switch(_ghostHandData.HandType)
             {
                 case HandType.Left:
                     _handVisual = _inputService.LocalPlayer.LeftHand.HandData.Renderer;
@@ -44,50 +44,32 @@ namespace TwoHandThrowing.Player
 
         public void CreateAttachPoint()
         {
-            var point = Instantiate(_attachPointPrefab, transform);
+            GameObject point = Instantiate(_attachPointPrefab, transform);
             point.transform.localPosition = transform.InverseTransformPoint(_wrist.position);
         }
 
         private void OnSelectEntered(SelectEnterEventArgs args)
         {
-            var handRef = args.interactorObject.transform.GetComponent<HandRef>();
-            if (handRef is null || handRef.HandData.HandType != _handDataPose.HandType)
+            HandRef handRef = args.interactorObject.transform.GetComponent<HandRef>();
+            if (handRef is null || handRef.HandData.HandType != _ghostHandData.HandType)
             {
                 return;
             }
             
             _handVisual.enabled = false;
-            _handDataPose.Renderer.enabled = true;
-            
-            /*handRef.HandData.Animator.enabled = false;
-            handRef.HandData.Root.parent.localRotation = _handDataPose.Root.localRotation;
-            for(int i = 0; i < _handDataPose.Bones.Length; i++)
-            {
-                handRef.HandData.Bones[i].localRotation = _handDataPose.Bones[i].localRotation;
-            }*/
+            _ghostHandData.Renderer.enabled = true;
         }
 
         private void OnSelectExited(SelectExitEventArgs args)
         {
-            var handRef = args.interactorObject.transform.GetComponent<HandRef>();
-            if (handRef is null || handRef.HandData.HandType != _handDataPose.HandType)
+            HandRef handRef = args.interactorObject.transform.GetComponent<HandRef>();
+            if (handRef is null || handRef.HandData.HandType != _ghostHandData.HandType)
             {
                 return;
             }
 
             _handVisual.enabled = true;
-            _handDataPose.Renderer.enabled = false;
-
-            /*handRef.HandData.Animator.enabled = true;
-
-            if(handRef.HandData.HandType == HandType.Right)
-            {
-                handRef.HandData.Root.parent.localRotation = Quaternion.Euler(new Vector3(-90, 0, -90));
-            }
-            else if(handRef.HandData.HandType == HandType.Left)
-            {
-                handRef.HandData.Root.parent.localRotation = Quaternion.Euler(new Vector3(90, 0, -90));
-            }*/
+            _ghostHandData.Renderer.enabled = false;
         }
     }
 }

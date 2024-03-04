@@ -8,13 +8,15 @@ namespace TwoHandThrowing.Player
     [RequireComponent(typeof(Animator))]
     public class Hand : MonoBehaviour
     {
+        public const string GRIP_PARAMETER = "Grip";
+        public const string TRIGGER_PARAMETER = "Trigger";
+        
         [SerializeField] private InputDeviceCharacteristics _inputDeviceCharacteristics;
 
         private Animator _animator;
 
-
         private InputDevice _targetDevice;
-
+        
         private void Awake()
         {
             _animator = GetComponent<Animator>();
@@ -41,11 +43,6 @@ namespace TwoHandThrowing.Player
 
         private void Update()
         {
-            if (!_targetDevice.isValid)
-            {
-                return;
-            }
-
             UpdateHand();
         }
 
@@ -55,12 +52,12 @@ namespace TwoHandThrowing.Player
 
             if (_targetDevice.TryGetFeatureValue(CommonUsages.grip, out gripValue))
             {
-                _animator.SetFloat("Grip", gripValue);
+                _animator.SetFloat(GRIP_PARAMETER, gripValue);
             }
 
             if (_targetDevice.TryGetFeatureValue(CommonUsages.trigger, out triggerValue))
             {
-                _animator.SetFloat("Trigger", triggerValue);
+                _animator.SetFloat(TRIGGER_PARAMETER, triggerValue);
             }
         }
     }

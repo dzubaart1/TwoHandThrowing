@@ -10,8 +10,8 @@ namespace TwoHandThrowing.Core
 
         public static T GetConfiguration<T>() where T : Configuration
         {
-            var nameDef = $"{_pathForSearch}/{typeof(T).Name}";
-            var asset = Resources.Load<T>(nameDef);
+            string nameDef = $"{_pathForSearch}/{typeof(T).Name}";
+            T asset = Resources.Load<T>(nameDef);
 
             if (asset == null)
             {

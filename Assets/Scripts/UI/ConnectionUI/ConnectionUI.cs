@@ -8,8 +8,10 @@ namespace TwoHandThrowing.UI
     {
         [SerializeField] private Button _clientBtn;
         [SerializeField] private Button _hostBtn;
+        [SerializeField] private DropdownComponent _mapsDropdown;
 
         private NetworkService _networkService;
+        private SceneSwitchingService _sceneSwitchingService;
 
         private void Awake()
         {
@@ -17,6 +19,7 @@ namespace TwoHandThrowing.UI
             _hostBtn.onClick.AddListener(OnClickHostBtn);
 
             _networkService = Engine.GetService<NetworkService>();
+            _sceneSwitchingService = Engine.GetService<SceneSwitchingService>();
         }
 
         private void OnDestroy()
@@ -27,13 +30,15 @@ namespace TwoHandThrowing.UI
 
         private void OnClickClientBtn()
         {
-            _networkService.StartClient();
+            _sceneSwitchingService.LoadScene(_mapsDropdown.GetDropDownEnumValue<EScene>());
+            _networkService.NetworkManager.StartClient();
             gameObject.SetActive(false);
         }
 
         private void OnClickHostBtn()
         {
-            _networkService.StartHost();
+            _sceneSwitchingService.LoadScene(_mapsDropdown.GetDropDownEnumValue<EScene>());
+            _networkService.NetworkManager.StartHost();
             gameObject.SetActive(false);
         }
     }

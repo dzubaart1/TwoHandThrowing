@@ -1,8 +1,8 @@
 using System.Collections;
 using UnityEngine;
-using MaterialFactory.Tools;
 using Mirror;
 using TwoHandThrowing.Player;
+using TwoHandThrowing.Tools;
 
 namespace TwoHandThrowing.BallStuff
 {
@@ -33,7 +33,7 @@ namespace TwoHandThrowing.BallStuff
             _ballConfiguration = ballConfiguration;
 
             Rigidbody.GetCopyOf(ballConfiguration.RigidBody);
-            _collider.material = _ballConfiguration.PhysicMaterial;
+            _collider.sharedMaterial = _ballConfiguration.PhysicMaterial;
 
             HandGrabInteractable.throwSmoothingDuration = ballConfiguration.SmoothingDuration;
             HandGrabInteractable.throwVelocityScale = ballConfiguration.VelocityScale;
@@ -42,7 +42,7 @@ namespace TwoHandThrowing.BallStuff
             _lifeTime = ballConfiguration.LifeTime;
         }
 
-        public void DestroyBall()
+        public void OnDestroy()
         {
             StartCoroutine(DestroyCoroutine());
         }
@@ -51,18 +51,6 @@ namespace TwoHandThrowing.BallStuff
         {
             yield return new WaitForSeconds(_lifeTime);
             NetworkServer.Destroy(gameObject);
-        }
-
-        private void OnCollisionExit(Collision collision)
-        {
-            var handData = collision.gameObject.GetComponent<HandData>();
-
-            if (handData is null)
-            {
-                return;
-            }
-            
-            handData.TryGrabBall(this);
         }
     }
 }

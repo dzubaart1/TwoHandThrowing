@@ -2,7 +2,7 @@
 
 namespace TwoHandThrowing.Core
 {
-    public class Configuration : ScriptableObject
+    public abstract class Configuration : ScriptableObject
     {
     }
 }

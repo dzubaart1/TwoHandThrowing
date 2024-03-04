@@ -1,11 +1,12 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace TwoHandThrowing.BallStuff
 {
     public class BallConfiguration
     {
-        public Rigidbody? RigidBody { get; set; }
-        public PhysicMaterial? PhysicMaterial { get; set; }
+        [CanBeNull] public Rigidbody RigidBody { get; set; }
+        [CanBeNull] public PhysicMaterial PhysicMaterial { get; set; }
         public float SmoothingDuration { get; set; }
         public float VelocityScale { get; set; }
         public float AngularVelocityScale { get; set; }

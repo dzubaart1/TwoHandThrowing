@@ -2,13 +2,13 @@
 using System.Reflection;
 using UnityEngine;
 
-namespace MaterialFactory.Tools
+namespace TwoHandThrowing.Tools
 {
     public static class ExtensionMethods
     {
 		public static T GetCopyOf<T>(this Component comp, T other) where T : Component
 		{
-			if(other is null)
+			if(other == null)
             {
 				return null;
             }
@@ -23,13 +23,18 @@ namespace MaterialFactory.Tools
 			PropertyInfo[] pinfos = type.GetProperties(flags);
 			foreach (var pinfo in pinfos)
 			{
-				if (pinfo.CanWrite)
+				if (!pinfo.CanWrite)
 				{
-					try
-					{
-						pinfo.SetValue(comp, pinfo.GetValue(other, null), null);
-					}
-					catch { }
+					continue;
+				}
+				
+				try
+				{
+					pinfo.SetValue(comp, pinfo.GetValue(other, null), null);
+				}
+				catch
+				{
+					// ignored
 				}
 			}
 

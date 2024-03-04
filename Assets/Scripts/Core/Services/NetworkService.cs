@@ -1,78 +1,45 @@
-﻿using Mirror;
-using System;
+﻿using System;
+using JetBrains.Annotations;
 using TwoHandThrowing.Network;
 
 namespace TwoHandThrowing.Core
 {
     public class NetworkService : IService
     {
-        public event Action ServerAddPlayerEvent;
-        public event Action ServerStartedEvent;
-        public event Action ServerConnectedEvent;
         public event Action NetworkBehaviourSpawnedEvent;
-        public event Action StartClientEvent;
-
-        public Network.NetworkPlayer CurrentNetworkPlayer { get; private set; }
-        public Network.NetworkManager NetworkManager { get; private set; }
-        public Network.NetworkBehaviour NetworkBehaviour { get; private set; }
-
+        public event Action CurrentNetworkPlayerSetEvent;
+        public event Action CurrentNetworkManagerEvent;
+        
+        [CanBeNull]
+        public NetworkManager NetworkManager { get; private set; }
+        
+        [CanBeNull]
+        public NetworkPlayer CurrentNetworkPlayer { get; private set; }
+        
+        [CanBeNull]
+        public NetworkBehaviour NetworkBehaviour { get; private set; }
+        
         public void Initialize()
         {
+            // Nothing to initialize
         }
 
-        public void Destroy()
+        public void SetNetworkManager(NetworkManager manager)
         {
+            NetworkManager = manager;
+            CurrentNetworkManagerEvent?.Invoke();
+        }
+        
+        public void SetCurrentNetworkPlayer(NetworkPlayer player)
+        {
+            CurrentNetworkPlayer = player;
+            CurrentNetworkPlayerSetEvent?.Invoke();
         }
 
-        public void SetCurrentNetworkPlayer(Network.NetworkPlayer networkPlayer)
+        public void SetNetworkBehaviour(NetworkBehaviour networkBehaviour)
         {
-            CurrentNetworkPlayer = networkPlayer;
-        }
-
-        public void SetNetworkManager(Network.NetworkManager networkManager)
-        {
-            NetworkManager = networkManager;
-
-            NetworkManager.ServerAddPlayerEvent += OnServerAddPlayer;
-            NetworkManager.ServerConnectedEvent += OnServerConnected;
-            NetworkManager.ServerStartedEvent += OnServerStarted;
-            NetworkManager.StartClientEvent += OnStartClient;
-        }
-
-        public void SetNetworkBehaviour(Network.NetworkBehaviour behaviour)
-        {
-            NetworkBehaviour = behaviour;
+            NetworkBehaviour = networkBehaviour;
             NetworkBehaviourSpawnedEvent?.Invoke();
-        }
-
-        public void StartHost()
-        {
-            NetworkManager.StartHost();
-        }
-
-        public void StartClient()
-        {
-            NetworkManager.StartClient();
-        }
-
-        private void OnServerAddPlayer()
-        {
-            ServerAddPlayerEvent?.Invoke();
-        }
-
-        private void OnServerStarted()
-        {
-            ServerStartedEvent?.Invoke();
-        }
-
-        private void OnServerConnected()
-        {
-            ServerConnectedEvent?.Invoke();
-        }
-
-        private void OnStartClient()
-        {
-            StartClientEvent?.Invoke();
         }
     }
 }

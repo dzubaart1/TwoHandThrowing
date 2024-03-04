@@ -1464,7 +1464,7 @@ MonoBehaviour:
   _attachPointPrefab: {fileID: 373763917033073068, guid: 60d32bb0813bff84eaa966ecb3f209bd, type: 3}
   _wrist: {fileID: 3266364521046199909}
   _handGrabInteractable: {fileID: 6545284691638562051}
-  _handDataPose: {fileID: 5144012740224351635}
+  _ghostHandData: {fileID: 3703770797603162689}
 --- !u!1 &1740474498416545902
 GameObject:
   m_ObjectHideFlags: 0
@@ -2312,7 +2312,7 @@ MonoBehaviour:
   _attachPointPrefab: {fileID: 373763917033073068, guid: 60d32bb0813bff84eaa966ecb3f209bd, type: 3}
   _wrist: {fileID: 8281724131841565113}
   _handGrabInteractable: {fileID: 6545284691638562051}
-  _handDataPose: {fileID: 6747369611907116971}
+  _ghostHandData: {fileID: 1813105070924494227}
 --- !u!1 &3283951228036665582
 GameObject:
   m_ObjectHideFlags: 0
@@ -4174,7 +4174,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5554586997351306883}
-  - component: {fileID: 5144012740224351635}
+  - component: {fileID: 3703770797603162689}
   m_Layer: 0
   m_Name: GhostHand_L
   m_TagString: Untagged
@@ -4199,7 +4199,7 @@ Transform:
   - {fileID: 1607372125009635383}
   m_Father: {fileID: 3233389156783828635}
   m_LocalEulerAnglesHint: {x: 76.373, y: 90, z: 0}
---- !u!114 &5144012740224351635
+--- !u!114 &3703770797603162689
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4208,32 +4208,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5398628059169157037}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eca3f32b6f64314eb50ab6723624d28, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a9941bd70f144188109c7c8676e6065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HandType: 0
-  MaxVelocityToAttach: 1
+  _handType: 0
   _root: {fileID: 5554586997351306883}
-  _bones:
-  - {fileID: 2280206321490237694}
-  - {fileID: 393062720921852238}
-  - {fileID: 6789232678285915398}
-  - {fileID: 3810360480137327610}
-  - {fileID: 6423273948585602850}
-  - {fileID: 5397334160647915155}
-  - {fileID: 7919352707897164776}
-  - {fileID: 5707622399104705561}
-  - {fileID: 7202546685008622663}
-  - {fileID: 8838553218101703500}
-  - {fileID: 8180100933338178151}
-  - {fileID: 3209503833804544215}
-  - {fileID: 1517983668620045903}
-  - {fileID: 2810015073920140178}
-  - {fileID: 2517471561076899991}
-  - {fileID: 4218350071538196340}
-  - {fileID: 7259024506074247944}
   _renderer: {fileID: 3820923060259533448}
-  _rigidbody: {fileID: 0}
 --- !u!1 &5479110184299766656
 GameObject:
   m_ObjectHideFlags: 0
@@ -4942,7 +4922,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3237088423512598188}
-  - component: {fileID: 6747369611907116971}
+  - component: {fileID: 1813105070924494227}
   m_Layer: 0
   m_Name: GhostHand_R
   m_TagString: Untagged
@@ -4967,7 +4947,7 @@ Transform:
   - {fileID: 543855033173385900}
   m_Father: {fileID: 2579779785041301833}
   m_LocalEulerAnglesHint: {x: 76.413, y: 0, z: -180}
---- !u!114 &6747369611907116971
+--- !u!114 &1813105070924494227
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4976,32 +4956,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6365306281055623820}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eca3f32b6f64314eb50ab6723624d28, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a9941bd70f144188109c7c8676e6065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HandType: 1
-  MaxVelocityToAttach: 1
+  _handType: 1
   _root: {fileID: 3237088423512598188}
-  _bones:
-  - {fileID: 4720654228261774350}
-  - {fileID: 1883859245208590878}
-  - {fileID: 6557749812245090657}
-  - {fileID: 1328940119528189954}
-  - {fileID: 6643032736142941879}
-  - {fileID: 372854730876105106}
-  - {fileID: 6505146886909647250}
-  - {fileID: 1469846479132596930}
-  - {fileID: 2989546093020071730}
-  - {fileID: 6104686113903860191}
-  - {fileID: 9099639037155144286}
-  - {fileID: 2935968709586115255}
-  - {fileID: 8744609415815247120}
-  - {fileID: 6098168219584712537}
-  - {fileID: 1075439838258571990}
-  - {fileID: 2391767548417191683}
-  - {fileID: 8114134805695976762}
   _renderer: {fileID: 7835927401385821632}
-  _rigidbody: {fileID: 0}
 --- !u!1 &6365857766853851391
 GameObject:
   m_ObjectHideFlags: 0

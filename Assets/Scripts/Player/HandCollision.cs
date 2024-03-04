@@ -1,48 +1,52 @@
-using System.Collections.Generic;
-using System.Linq;
+using System;
 using UnityEngine;
 
-public class HandCollision : MonoBehaviour
+namespace TwoHandThrowing.Player
 {
-
-    private List<Collider> _handColliders;
-    private Rigidbody _rigidbody;
-    private void Awake()
+    [RequireComponent(typeof(Rigidbody))]
+    public class HandCollision : MonoBehaviour
     {
-        _handColliders = new List<Collider>();
-    }
-
-    private void Start()
-    {
-        _handColliders = gameObject.GetComponentsInChildren<Collider>().ToList();
-        _rigidbody = gameObject.GetComponentInChildren<Rigidbody>();
-    }
-
-    public void TurnOffColliders()
-    {
-        foreach (var collider in _handColliders)
-        {
-            collider.enabled = false;
-        }
+        [SerializeField] private Collider[] _handColliders;
         
-        _rigidbody.Sleep();
-    }
+        private Rigidbody _rigidbody;
 
-    public void TurnOnColliders()
-    {
-        foreach (var collider in _handColliders)
+        private void Awake()
         {
-            collider.enabled = true;
+            _rigidbody = GetComponent<Rigidbody>();
         }
-        
-        _rigidbody.WakeUp();
-    }
 
-    public void UpdatePhysicMaterial(PhysicMaterial physicMaterial)
-    {
-        foreach (var collider in _handColliders)
+        [ContextMenu("Config Hand Collisions")]
+        private void CollectCollider()
         {
-            collider.material = physicMaterial;
+            _handColliders = gameObject.GetComponentsInChildren<Collider>();
+        }
+
+        public void TurnOffColliders()
+        {
+            foreach (var collider in _handColliders)
+            {
+                collider.enabled = false;
+            }
+            
+            _rigidbody.Sleep();
+        }
+
+        public void TurnOnColliders()
+        {
+            foreach (var collider in _handColliders)
+            {
+                collider.enabled = true;
+            }
+            
+            _rigidbody.WakeUp();
+        }
+
+        public void UpdatePhysicMaterial(PhysicMaterial physicMaterial)
+        {
+            foreach (var collider in _handColliders)
+            {
+                collider.material = physicMaterial;
+            }
         }
     }
 }

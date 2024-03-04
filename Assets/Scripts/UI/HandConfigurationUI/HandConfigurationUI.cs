@@ -20,14 +20,14 @@ namespace TwoHandThrowing.UI
 
         private PhysicMaterial _physicMaterial;
 
-        private HandDataConfigurationService _handDataService;
+        private HandDataConfigurationService _handDataConfigurationService;
         private InputService _inputService;
         
         private void Awake()
         {
             _confirmBtn.onClick.AddListener(OnClickConfirmBtn);
 
-            _handDataService = Engine.GetService<HandDataConfigurationService>();
+            _handDataConfigurationService = Engine.GetService<HandDataConfigurationService>();
             _inputService = Engine.GetService<InputService>();
             
             _physicMaterial = new PhysicMaterial();
@@ -46,8 +46,8 @@ namespace TwoHandThrowing.UI
             _physicMaterial.frictionCombine = _frictionCombineDropdown.GetDropDownEnumValue<PhysicMaterialCombine>();
             _physicMaterial.bounceCombine = _bounceCombineDropdown.GetDropDownEnumValue<PhysicMaterialCombine>();
             
-            _handDataService.UpdateHandConfig(_physicMaterial, _maxVelocityToAttach.Value, _inputService.LocalPlayer.LeftHand);
-            _handDataService.UpdateHandConfig(_physicMaterial, _maxVelocityToAttach.Value, _inputService.LocalPlayer.RightHand);
+            _handDataConfigurationService.UpdateHandConfig(_physicMaterial, _maxVelocityToAttach.Value, _inputService.LocalPlayer.LeftHand);
+            _handDataConfigurationService.UpdateHandConfig(_physicMaterial, _maxVelocityToAttach.Value, _inputService.LocalPlayer.RightHand);
         }
     }
     

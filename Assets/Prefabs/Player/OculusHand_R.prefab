@@ -1930,6 +1930,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HandType: 1
+  MaxVelocityToAttach: 1
   _root: {fileID: 248170895379203363}
   _bones:
   - {fileID: 4958825404174371091}
@@ -1989,6 +1990,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08806a72083e375429afa745a537a0b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _handColliders:
+  - {fileID: 3728620726899743695}
+  - {fileID: 4236640733344757990}
+  - {fileID: 5998274753155106857}
+  - {fileID: 4571992802420480380}
+  - {fileID: 7510477820070096237}
+  - {fileID: 9084587590702212697}
+  - {fileID: 2139482589562074949}
+  - {fileID: 5817727230004777234}
+  - {fileID: 4306837180374551826}
+  - {fileID: 4772696321033477708}
+  - {fileID: 3733707363510458802}
+  - {fileID: 3626333672481625036}
+  - {fileID: 8683934371006194215}
+  - {fileID: 6059601492837577973}
+  - {fileID: 4228718284003220297}
+  - {fileID: 2183153670013206049}
+  - {fileID: 3380337154216325454}
 --- !u!1 &4754636938864545239
 GameObject:
   m_ObjectHideFlags: 0

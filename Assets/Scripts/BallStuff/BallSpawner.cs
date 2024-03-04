@@ -1,5 +1,4 @@
-﻿using Mirror;
-using TwoHandThrowing.Core;
+﻿using TwoHandThrowing.Core;
 using UnityEngine;
 
 namespace TwoHandThrowing.BallStuff

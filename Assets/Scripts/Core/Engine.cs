@@ -7,35 +7,29 @@ namespace TwoHandThrowing.Core
 {
     public class Engine
     {
-        public static RuntimeBehaviour Behaviour { get; set; }
+        public static EventCombiner EventCombiner { get; set; }
 
         private static Dictionary<Type, IService> _services = new();
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void Initialize()
         {
-            Behaviour = new GameObject("RuntimeBehaviour", typeof(RuntimeBehaviour)).GetComponent<RuntimeBehaviour>();
-
-            var networkService = new NetworkService();
-            var inputService = new InputService(GetConfiguration<InputConfiguration>());
+            EventCombiner = new GameObject("RuntimeBehaviour", typeof(EventCombiner)).GetComponent<EventCombiner>();
             
+            NetworkService networkService = new NetworkService();
+            SceneSwitchingService sceneSwitchingService = new SceneSwitchingService();
+            
+            AddService(sceneSwitchingService);
             AddService(networkService);
-            AddService(inputService);
-            AddService(new BallConfigurationService(GetConfiguration<BallUIConfiguration>(), networkService));
+            AddService(new BallConfigurationService());
             AddService(new HandDataConfigurationService(GetConfiguration<HandDataConfiguration>()));
             AddService(new BallSpawnerService(GetConfiguration<BallSpawnerConfiguration>()));
+            AddService(new UIService(GetConfiguration<UIConfiguration>(), sceneSwitchingService));
+            AddService(new InputService(GetConfiguration<InputConfiguration>()));
 
             foreach(var pair in _services)
             {
                 pair.Value.Initialize();
-            }
-        }
-
-        ~Engine()
-        {
-            foreach (var service in _services)
-            {
-                service.Value.Destroy();
             }
         }
 
@@ -62,11 +56,6 @@ namespace TwoHandThrowing.Core
             }
 
             return (T)_services[typeof(T)];
-        }
-
-        public static void Destroy(GameObject gameObject, float time = 0)
-        {
-            UnityEngine.Object.Destroy(gameObject, time);
         }
     }
 }
