@@ -1,10 +1,13 @@
+using System.Collections;
+using Mirror;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
+using WaitForSeconds = UnityEngine.WaitForSeconds;
 
 namespace VrGunTest.Scripts
 {
-    public class Gun : MonoBehaviour
+    public class Gun : NetworkBehaviour
     {
         [Header("Sliders")]
         [SerializeField] private Slider _rateSlider;
@@ -19,7 +22,10 @@ namespace VrGunTest.Scripts
         [SerializeField] private Transform _ballSpawnPoint;
         [Space]
         [Header("Other")]
+        [SerializeField] private ObjectCatcher _startStopTriggerZone;
         [SerializeField] private XRGrabInteractable _xrGrabInteractable;
+        [SerializeField] private Rigidbody _rigidbody;
+        
         
         private bool _isStarted;
 
@@ -29,35 +35,49 @@ namespace VrGunTest.Scripts
         
         private void OnEnable()
         {
-            _startStopButton.onClick.AddListener(OnStartStopButtonClick);
+            _startStopButton.onClick.AddListener(CmdChangeStarted);
+            _startStopTriggerZone.Caught += CmdChangeStarted;
         }
 
         private void OnDisable()
         {
-            _startStopButton.onClick.RemoveListener(OnStartStopButtonClick);
+            _startStopButton.onClick.RemoveListener(CmdChangeStarted);
+            _startStopTriggerZone.Caught -= CmdChangeStarted;
         }
 
-        private void OnStartStopButtonClick()
+        [Command(requiresAuthority = false)]
+        private void CmdChangeStarted()
+        {
+            ChangeStarted();
+        }
+        
+        [Server]
+        private void ChangeStarted()
         {
             _isStarted = !_isStarted;
             if (_isStarted)
             {
-                _timeToShot = _shootDelay;
                 _shootDelay = 1f / (_rateSlider.value/60);
+                _timeToShot = _shootDelay;
             }
-            ChangeInteractableSettingsAndObject(!_isStarted);
+            RpcChangeInteractableSettingsAndObject(!_isStarted);
         }
-
-        private void ChangeInteractableSettingsAndObject(bool isInteractable)
+        
+        [ClientRpc(includeOwner = true)]
+        private void RpcChangeInteractableSettingsAndObject(bool isInteractable)
         {
             _rateSlider.interactable = isInteractable;
             _lifeTimeSlider.interactable = isInteractable;
             _forceSlider.interactable = isInteractable;
             _xrGrabInteractable.enabled = isInteractable;
+            _rigidbody.isKinematic = !isInteractable;
         }
 
         private void Update()
         {
+            if(!isServer)
+                return;
+            
             if (_isStarted)
                 PeriodicalShot();
         }
@@ -73,12 +93,21 @@ namespace VrGunTest.Scripts
             _timeToShot += Time.deltaTime;
         }
 
+        [Server]
         private void Shot()
         {
             Rigidbody ball = Instantiate(_ballPrefab, _ballSpawnPoint.position, Quaternion.identity);
+            NetworkServer.Spawn(ball.gameObject);
             ball.AddForce(_forceSlider.value * _ballSpawnPoint.transform.forward, ForceMode.Force);
+            StartCoroutine(DestroyCoroutine(ball));
+        }
 
-            Destroy(ball, _lifeTimeSlider.value);
+        private IEnumerator DestroyCoroutine(Rigidbody ball)
+        {
+            yield return new WaitForSeconds(_lifeTimeSlider.value);
+            
+            NetworkServer.UnSpawn(ball.gameObject);
+            Destroy(ball.gameObject);
         }
     }
 }

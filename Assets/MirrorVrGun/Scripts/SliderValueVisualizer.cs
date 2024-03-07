@@ -22,7 +22,13 @@ namespace VrGunTest.Scripts
 
         private void OnSliderValueChanged(float value)
         {
+            SetValue(value);
+        }
+
+        public void SetValue(float value)
+        {
             _valueText.text = value.ToString(CultureInfo.InvariantCulture);
+
         }
     }
 }
