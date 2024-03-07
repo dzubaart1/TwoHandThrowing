@@ -11,5 +11,29 @@ namespace TwoHandThrowing.Player
         [SerializeField] private HandCollision _leftHand;
         [SerializeField] private HandCollision _rightHand;
         [SerializeField] private Transform _head;
+
+        public void ShowHand(HandType handType)
+        {
+            HandData hand = LeftHand.HandData;
+
+            if (handType == HandType.Right)
+            {
+                hand = RightHand.HandData;
+            }
+
+            hand.Renderer.enabled = true;
+        }
+
+        public void HideHand(HandType handType)
+        {
+            HandData hand = LeftHand.HandData;
+
+            if (handType == HandType.Right)
+            {
+                hand = RightHand.HandData;
+            }
+
+            hand.Renderer.enabled = false;
+        }
     }
 }

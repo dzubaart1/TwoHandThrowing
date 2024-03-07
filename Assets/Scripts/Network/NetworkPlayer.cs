@@ -59,6 +59,43 @@ namespace TwoHandThrowing.Network
             to.rotation = from.rotation;
             to.position = from.position;
         }
+
+        [Command]
+        public void CmdHideHand(HandType handType)
+        {
+            RpcHideHand(handType);
+        }
+
+        [ClientRpc]
+        public void RpcHideHand(HandType handType)
+        {
+            HandData hand = _leftHandData;
+
+            if (handType == HandType.Right)
+            {
+                hand = _rightHandData;
+            }
+
+            hand.Renderer.enabled = false;
+        }
+        
+        [Command]
+        public void CmdShowHand(HandType handType)
+        {
+            RpcShowHand(handType);
+        }
+
+        public void RpcShowHand(HandType handType)
+        {
+            HandData hand = _leftHandData;
+
+            if (handType == HandType.Right)
+            {
+                hand = _rightHandData;
+            }
+
+            hand.Renderer.enabled = true;
+        }
         
 
         [Command]
