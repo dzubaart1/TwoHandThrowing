@@ -7,12 +7,14 @@ namespace TwoHandThrowing.Network
 {
     public class NetworkPlayer : NetworkBehaviour
     {
-        public HandData LeftHandData => _leftHandData;
-        public HandData RightHandData => _rightHandData;
-
+        public Transform LeftHand => _leftHand;
+        public Transform RightHand => _rightHand;
+        
         [SerializeField] private HandData _leftHandData;
         [SerializeField] private HandData _rightHandData;
         [SerializeField] private Transform _head;
+        [SerializeField] private Transform _leftHand;
+        [SerializeField] private Transform _rightHand;
 
         private InputService _inputService;
         
@@ -44,23 +46,18 @@ namespace TwoHandThrowing.Network
             }
             
             Transform localPlayer = _inputService.LocalPlayer.transform;
-            HandData localLeftHandData = _inputService.LocalPlayer.LeftHand.HandData;
-            HandData localRightHandData = _inputService.LocalPlayer.RightHand.HandData;
+            HandCollision localLeft = _inputService.LocalPlayer.LeftHand;
+            HandCollision localRight = _inputService.LocalPlayer.RightHand;
 
-            MapTransform(localLeftHandData.Root.parent, _leftHandData.Root.parent);
-            MapTransform(localLeftHandData.Root, _leftHandData.Root);
-            
-            MapTransform(localRightHandData.Root.parent, _rightHandData.Root.parent);
-            MapTransform(localRightHandData.Root, _rightHandData.Root);
-
-            transform.rotation = localPlayer.rotation;
-            transform.position = localPlayer.position;
+            MapTransform(localLeft.transform, LeftHand);
+            MapTransform(localRight.transform, RightHand);
+            MapTransform(localPlayer, transform);
         }
         
         private void MapTransform(Transform from, Transform to)
         {
-            to.localRotation = from.localRotation;
-            to.localPosition = from.localPosition;
+            to.rotation = from.rotation;
+            to.position = from.position;
         }
         
 
