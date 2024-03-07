@@ -141,15 +141,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6091054527877576094, guid: 48a9c2d06e55e2e44bac86bc32b25a51, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 31.682455
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6091054527877576094, guid: 48a9c2d06e55e2e44bac86bc32b25a51, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -40.985657
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6091054527877576094, guid: 48a9c2d06e55e2e44bac86bc32b25a51, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.321979
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6091054527877576094, guid: 48a9c2d06e55e2e44bac86bc32b25a51, type: 3}
       propertyPath: m_LocalRotation.w
@@ -499,6 +499,10 @@ PrefabInstance:
     - target: {fileID: 7573101659605663474, guid: d3f7cb26fb8614984bff2f8d34044e00, type: 3}
       propertyPath: offlineScene
       value: Assets/Scenes/Menu.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 7573101659605663474, guid: d3f7cb26fb8614984bff2f8d34044e00, type: 3}
+      propertyPath: networkAddress
+      value: localhost
       objectReference: {fileID: 0}
     - target: {fileID: 7573101659605663474, guid: d3f7cb26fb8614984bff2f8d34044e00, type: 3}
       propertyPath: spawnPrefabs.Array.size

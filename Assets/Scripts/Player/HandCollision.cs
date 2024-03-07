@@ -1,18 +1,28 @@
-using System;
+using TwoHandThrowing.BallStuff;
+using TwoHandThrowing.Core;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 namespace TwoHandThrowing.Player
 {
-    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Rigidbody), typeof(ActionBasedController), typeof(XRDirectInteractor))]
     public class HandCollision : MonoBehaviour
     {
-        [SerializeField] private Collider[] _handColliders;
+        public float MaxVelocityToAttach = 1;
         
-        private Rigidbody _rigidbody;
-
+        public HandData HandData => _handData;
+        public XRDirectInteractor Interactor { get; private set; }
+        public ActionBasedController Controller { get; private set; }
+        public Rigidbody Rigidbody { get; private set; }
+        
+        [SerializeField] private Collider[] _handColliders;
+        [SerializeField] private HandData _handData;
+        
         private void Awake()
         {
-            _rigidbody = GetComponent<Rigidbody>();
+            Rigidbody = GetComponent<Rigidbody>();
+            Interactor = GetComponent<XRDirectInteractor>();
+            Controller = GetComponent<ActionBasedController>();
         }
 
         [ContextMenu("Config Hand Collisions")]
@@ -28,7 +38,7 @@ namespace TwoHandThrowing.Player
                 collider.enabled = false;
             }
             
-            _rigidbody.Sleep();
+            Rigidbody.Sleep();
         }
 
         public void TurnOnColliders()
@@ -38,7 +48,7 @@ namespace TwoHandThrowing.Player
                 collider.enabled = true;
             }
             
-            _rigidbody.WakeUp();
+            Rigidbody.WakeUp();
         }
 
         public void UpdatePhysicMaterial(PhysicMaterial physicMaterial)
@@ -47,6 +57,29 @@ namespace TwoHandThrowing.Player
             {
                 collider.material = physicMaterial;
             }
+        }
+        
+        private void OnCollisionExit(Collision collision)
+        {
+            var ball = collision.gameObject.GetComponent<Ball>();
+
+            if (ball == null)
+            {
+                return;
+            }
+
+            if (!Controller.selectAction.action.inProgress |
+                HandData.HandDataType != HandDataType.Goalkeeper)
+            {
+                return;
+            }
+
+            if (ball.Rigidbody.velocity.sqrMagnitude > MaxVelocityToAttach)
+            {
+                return;
+            }
+            
+            Interactor.interactionManager.SelectEnter(Interactor, (IXRSelectInteractable)ball.HandGrabInteractable);
         }
     }
 }

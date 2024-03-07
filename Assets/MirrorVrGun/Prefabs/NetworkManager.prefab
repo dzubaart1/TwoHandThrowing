@@ -26,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2346952721011414505}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.12722327, y: 1.15, z: -0.23077674}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2346952721011414507
 MonoBehaviour:
@@ -53,8 +53,8 @@ MonoBehaviour:
   sendRate: 60
   autoStartServerBuild: 0
   autoConnectClientBuild: 0
-  offlineScene: Assets/VrGunTest/Scenes/Menu.unity
-  onlineScene: Assets/VrGunTest/Scenes/Main.unity
+  offlineScene: 
+  onlineScene: 
   transport: {fileID: 2346952721011414506}
   networkAddress: localhost
   maxConnections: 100

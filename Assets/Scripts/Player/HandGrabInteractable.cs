@@ -12,8 +12,8 @@ namespace TwoHandThrowing.Player
         [SerializeField] private Transform _leftHandAttachTransform;
         [SerializeField] private Transform _rightHandAttachTransform;
         
-        private HandRef _rightHand;
-        private HandRef _leftHand;
+        private HandCollision _rightHand;
+        private HandCollision _leftHand;
 
         private InputService _inputService;
 
@@ -38,7 +38,7 @@ namespace TwoHandThrowing.Player
                 {
                     attachTransform.SetPositionAndRotation(_leftHandAttachTransform.position, _leftHandAttachTransform.rotation);
                 }
-                _leftHand.Collision.TurnOffColliders();
+                _leftHand.TurnOffColliders();
             }
 
             if(args.interactorObject.Equals(_rightHand.Interactor))
@@ -47,7 +47,7 @@ namespace TwoHandThrowing.Player
                 {
                     attachTransform.SetPositionAndRotation(_rightHandAttachTransform.position, _rightHandAttachTransform.rotation);
                 }
-                _rightHand.Collision.TurnOffColliders();
+                _rightHand.TurnOffColliders();
             }
 
             base.OnSelectEntering(args);
@@ -62,7 +62,7 @@ namespace TwoHandThrowing.Player
                 {
                     attachTransform.SetPositionAndRotation(_rightHandAttachTransform.position, _rightHandAttachTransform.rotation);
                 }
-                _leftHand.Collision.TurnOnColliders();
+                _leftHand.TurnOnColliders();
             }
 
             if (args.interactorObject.Equals(_rightHand.Interactor))
@@ -71,7 +71,7 @@ namespace TwoHandThrowing.Player
                 {
                     attachTransform.SetPositionAndRotation(_leftHandAttachTransform.position, _leftHandAttachTransform.rotation);
                 }
-                _rightHand.Collision.TurnOnColliders();
+                _rightHand.TurnOnColliders();
             }
 
             base.OnSelectExiting(args);

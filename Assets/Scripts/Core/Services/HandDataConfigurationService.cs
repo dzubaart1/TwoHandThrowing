@@ -25,10 +25,10 @@ namespace Assets.Scripts.Core.Services
             return Configuration.FindHandDataSettings(handDataType);
         }
         
-        public void UpdateHandConfig(PhysicMaterial physicMaterial, float maxVelocityToAttach, HandRef handRef)
+        public void UpdateHandConfig(PhysicMaterial physicMaterial, float maxVelocityToAttach, HandCollision handCollision)
         {
-            handRef.Collision.UpdatePhysicMaterial(physicMaterial);
-            handRef.HandData.MaxVelocityToAttach = maxVelocityToAttach;
+            handCollision.UpdatePhysicMaterial(physicMaterial);
+            handCollision.MaxVelocityToAttach = maxVelocityToAttach;
         }
     }
 }

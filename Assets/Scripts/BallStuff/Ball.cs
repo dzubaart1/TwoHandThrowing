@@ -42,10 +42,10 @@ namespace TwoHandThrowing.BallStuff
             _lifeTime = ballConfiguration.LifeTime;
         }
 
-        public void OnDestroy()
+        /*public void OnDestroy()
         {
             StartCoroutine(DestroyCoroutine());
-        }
+        }*/
 
         private IEnumerator DestroyCoroutine()
         {

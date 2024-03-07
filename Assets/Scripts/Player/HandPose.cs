@@ -50,8 +50,8 @@ namespace TwoHandThrowing.Player
 
         private void OnSelectEntered(SelectEnterEventArgs args)
         {
-            HandRef handRef = args.interactorObject.transform.GetComponent<HandRef>();
-            if (handRef is null || handRef.HandData.HandType != _ghostHandData.HandType)
+            HandCollision handCollision = args.interactorObject.transform.GetComponent<HandCollision>();
+            if (handCollision is null || handCollision.HandData.HandType != _ghostHandData.HandType)
             {
                 return;
             }
@@ -62,8 +62,8 @@ namespace TwoHandThrowing.Player
 
         private void OnSelectExited(SelectExitEventArgs args)
         {
-            HandRef handRef = args.interactorObject.transform.GetComponent<HandRef>();
-            if (handRef is null || handRef.HandData.HandType != _ghostHandData.HandType)
+            HandCollision handCollision = args.interactorObject.transform.GetComponent<HandCollision>();
+            if (handCollision is null || handCollision.HandData.HandType != _ghostHandData.HandType)
             {
                 return;
             }
