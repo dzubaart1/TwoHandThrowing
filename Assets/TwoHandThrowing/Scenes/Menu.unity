@@ -498,7 +498,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7573101659605663474, guid: d3f7cb26fb8614984bff2f8d34044e00, type: 3}
       propertyPath: offlineScene
-      value: Assets/Scenes/Menu.unity
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7573101659605663474, guid: d3f7cb26fb8614984bff2f8d34044e00, type: 3}
       propertyPath: networkAddress

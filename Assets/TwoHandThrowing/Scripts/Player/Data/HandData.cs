@@ -8,12 +8,10 @@ namespace TwoHandThrowing.Player
     public class HandData : MonoBehaviour
     {
         [Header("Hand Config")]
-        public HandType HandType = HandType.Left;
-        public HandDataType HandDataType = HandDataType.Common;
+        public HandType HandType;
+        public HandDataType HandDataType;
         
         public Animator Animator { get; private set; }
-        
-        public SkinnedMeshRenderer Renderer => _renderer;
         public Transform Root => _root;
         public Transform[] Bones => _bones;
         
@@ -46,8 +44,23 @@ namespace TwoHandThrowing.Player
                     break;
             }
             
-            Renderer.sharedMaterial = settings.HandMaterial;
+            _renderer.sharedMaterial = settings.HandMaterial;
             HandDataType = settings.HandDataType;
+        }
+
+        public void ShowHand()
+        {
+            _renderer.enabled = true;
+        }
+
+        public void HideHand()
+        {
+            _renderer.enabled = false;
+        }
+
+        public bool IsVisible()
+        {
+            return _renderer.enabled;
         }
     }
 

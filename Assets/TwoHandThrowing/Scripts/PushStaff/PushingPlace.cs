@@ -36,7 +36,7 @@ namespace TwoHandThrowing.PushStaff
             Transform pushPoint = SpawnPushPoint(collision.GetContact(0));
             _recorededBallsDict.Add(ball, pushPoint);
 
-            Destroy(ball);
+            ball.DestroyBall();
         }
 
         private Transform SpawnPushPoint(ContactPoint point)

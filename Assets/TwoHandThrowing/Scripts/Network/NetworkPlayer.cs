@@ -22,11 +22,13 @@ namespace TwoHandThrowing.Network
         {
             _inputService = Engine.GetService<InputService>();
         }
+        
 
         public override void OnStartClient()
         {
             base.OnStartClient();
-
+            CmdSyncVisualHand();
+            Debug.Log("SYNC");
             if (!isOwned | Engine.GetService<NetworkService>().CurrentNetworkPlayer != null)
             {
                 return;
@@ -67,7 +69,7 @@ namespace TwoHandThrowing.Network
         }
 
         [ClientRpc]
-        public void RpcHideHand(HandType handType)
+        private void RpcHideHand(HandType handType)
         {
             HandData hand = _leftHandData;
 
@@ -76,16 +78,17 @@ namespace TwoHandThrowing.Network
                 hand = _rightHandData;
             }
 
-            hand.Renderer.enabled = false;
+            hand.HideHand();
         }
         
-        [Command]
+        [Command(requiresAuthority = false)]
         public void CmdShowHand(HandType handType)
         {
             RpcShowHand(handType);
         }
 
-        public void RpcShowHand(HandType handType)
+        [ClientRpc]
+        private void RpcShowHand(HandType handType)
         {
             HandData hand = _leftHandData;
 
@@ -94,11 +97,10 @@ namespace TwoHandThrowing.Network
                 hand = _rightHandData;
             }
 
-            hand.Renderer.enabled = true;
+            hand.ShowHand();
         }
         
-
-        [Command]
+        [Command(requiresAuthority = false)]
         public void CmdChangeNetHandDataType(HandType handType, HandDataType handDataType)
         {
             RpcChangeNetHandDataType(handType, handDataType);
@@ -116,6 +118,13 @@ namespace TwoHandThrowing.Network
                     _rightHandData.UpdateHandDataType(handDataType);
                     break;
             }
+        }
+
+        [Command(requiresAuthority = false)]
+        private void CmdSyncVisualHand()
+        {
+            RpcChangeNetHandDataType(HandType.Left, _leftHandData.HandDataType);
+            RpcChangeNetHandDataType(HandType.Right, _rightHandData.HandDataType);
         }
     }
 }

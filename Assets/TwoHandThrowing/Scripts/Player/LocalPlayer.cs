@@ -21,7 +21,7 @@ namespace TwoHandThrowing.Player
                 hand = RightHand.HandData;
             }
 
-            hand.Renderer.enabled = true;
+            hand.ShowHand();
         }
 
         public void HideHand(HandType handType)
@@ -33,7 +33,7 @@ namespace TwoHandThrowing.Player
                 hand = RightHand.HandData;
             }
 
-            hand.Renderer.enabled = false;
+            hand.HideHand();
         }
     }
 }

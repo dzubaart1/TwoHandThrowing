@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Mirror;
 using TwoHandThrowing.Core;
@@ -62,16 +63,16 @@ namespace TwoHandThrowing.BallStuff
             _lifeTime = ballConfiguration.LifeTime;
         }
 
-        /*public void OnDestroy()
+        public void DestroyBall()
         {
             StartCoroutine(DestroyCoroutine());
-        }*/
+        }
 
-        /*private IEnumerator DestroyCoroutine()
+        private IEnumerator DestroyCoroutine()
         {
             yield return new WaitForSeconds(_lifeTime);
             NetworkServer.Destroy(gameObject);
-        }*/
+        }
 
         private void OnSelectEnter(SelectEnterEventArgs args)
         {
@@ -101,7 +102,7 @@ namespace TwoHandThrowing.BallStuff
             CmdHideHandPose(handCollision.HandData.HandType);
         }
 
-        [Command]
+        [Command(requiresAuthority = false)]
         public void CmdShowHandPose(HandType handType)
         {
             RpcShowHandPose(handType);
