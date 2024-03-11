@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 namespace TwoHandThrowing.Network
 {
-    public class NetworkManager : Mirror.NetworkManager
+    public class VRNetworkManager : Mirror.NetworkManager
     {
         public event Action ServerAddPlayerEvent;
         public event Action ServerStartedEvent;

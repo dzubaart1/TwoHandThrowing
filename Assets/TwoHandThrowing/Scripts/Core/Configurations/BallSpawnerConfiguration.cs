@@ -1,4 +1,4 @@
-﻿using TwoHandThrowing.BallStuff;
+﻿using TwoHandThrowing.Gameplay;
 using UnityEngine;
 
 namespace TwoHandThrowing.Core

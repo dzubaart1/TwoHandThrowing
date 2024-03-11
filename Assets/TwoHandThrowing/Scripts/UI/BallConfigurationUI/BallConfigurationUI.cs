@@ -38,7 +38,6 @@ namespace TwoHandThrowing.UI
         private PhysicMaterial _physicMaterial;
 
         private float _posSum, _rotSum;
-        private bool _isConfirmed;
 
         private void Awake()
         {
@@ -87,8 +86,6 @@ namespace TwoHandThrowing.UI
             _ballConfigurationService.UpdatePhysicMaterial(_physicMaterial);
             _ballConfigurationService.UpdateBallLifeTime(_ballLifeTime.Value);
             _ballConfigurationService.UpdateThrowOnDetach(_smoothingDurationSlider.Value, _velocityScale.Value, _angularVelocityScale.Value);
-
-            _isConfirmed = true;
         }
 
         private void OnClickSpawnPointBtn()
@@ -98,18 +95,13 @@ namespace TwoHandThrowing.UI
 
         private void OnClickSpawnBtn()
         {
-            if(_networkService.NetworkBehaviour.isServer)
+            if (!_networkService.NetworkBehaviour.isServer)
             {
-                if (!_isConfirmed)
-                {
-                    return;
-                }
-
-                _ballSpawnerService.Spawn(_networkService.NetworkBehaviour.netIdentity, Vector3.zero);
+                _networkService.NetworkBehaviour.CmdSpawnBall();
                 return;
             }
-
-            _networkService.NetworkBehaviour.CmdSpawn(_networkService.NetworkBehaviour.netIdentity, Vector3.zero);
+            
+            _ballSpawnerService.Spawn();
         }
 
         private int TransferBitsToSum(bool[] bitsArray, int offsetValue)

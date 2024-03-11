@@ -1,7 +1,7 @@
 ﻿using TwoHandThrowing.Core;
 using UnityEngine;
 
-namespace TwoHandThrowing.BallStuff
+namespace TwoHandThrowing.Gameplay
 {
     public class BallSpawner : MonoBehaviour
     {

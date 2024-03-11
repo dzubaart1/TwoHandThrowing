@@ -2,7 +2,7 @@ using Mirror;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace TwoHandThrowing.Network
+namespace VrGunTest.Scripts.Network
 {
   public class ChangeOwnerGrabbableObject : NetworkBehaviour
     {

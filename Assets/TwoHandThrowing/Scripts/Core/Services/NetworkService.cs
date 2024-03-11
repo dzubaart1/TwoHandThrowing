@@ -11,20 +11,20 @@ namespace TwoHandThrowing.Core
         public event Action CurrentNetworkManagerEvent;
         
         [CanBeNull]
-        public NetworkManager NetworkManager { get; private set; }
+        public VRNetworkManager NetworkManager { get; private set; }
         
         [CanBeNull]
         public NetworkPlayer CurrentNetworkPlayer { get; private set; }
         
         [CanBeNull]
-        public NetworkBehaviour NetworkBehaviour { get; private set; }
+        public VRNetworkBehaviour NetworkBehaviour { get; private set; }
         
         public void Initialize()
         {
             // Nothing to initialize
         }
 
-        public void SetNetworkManager(NetworkManager manager)
+        public void SetNetworkManager(VRNetworkManager manager)
         {
             NetworkManager = manager;
             CurrentNetworkManagerEvent?.Invoke();
@@ -36,7 +36,7 @@ namespace TwoHandThrowing.Core
             CurrentNetworkPlayerSetEvent?.Invoke();
         }
 
-        public void SetNetworkBehaviour(NetworkBehaviour networkBehaviour)
+        public void SetNetworkBehaviour(VRNetworkBehaviour networkBehaviour)
         {
             NetworkBehaviour = networkBehaviour;
             NetworkBehaviourSpawnedEvent?.Invoke();

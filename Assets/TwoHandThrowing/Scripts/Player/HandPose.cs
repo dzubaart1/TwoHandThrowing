@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
 
 namespace TwoHandThrowing.Player
 {
@@ -16,14 +14,9 @@ namespace TwoHandThrowing.Player
             point.transform.localPosition = transform.InverseTransformPoint(_wrist.position);
         }
 
-        public void ShowGhostHand()
+        public void ToggleGhostHandVisible(bool isVisible)
         {
-            _ghostHandData.Renderer.enabled = true;
-        }
-        
-        public void HideGhostHand()
-        {
-            _ghostHandData.Renderer.enabled = false;
+            _ghostHandData.Renderer.enabled = isVisible;
         }
     }
 }

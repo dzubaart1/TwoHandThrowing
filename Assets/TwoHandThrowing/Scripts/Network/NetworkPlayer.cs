@@ -7,34 +7,45 @@ namespace TwoHandThrowing.Network
 {
     public class NetworkPlayer : NetworkBehaviour
     {
-        public Transform LeftHand => _leftHand;
-        public Transform RightHand => _rightHand;
+        public Transform LeftHand { get; private set; }
+        public Transform RightHand { get; private set; }
         
         [SerializeField] private HandData _leftHandData;
         [SerializeField] private HandData _rightHandData;
         [SerializeField] private Transform _head;
         [SerializeField] private Transform _leftHand;
         [SerializeField] private Transform _rightHand;
-
+        
+        private NetworkService _networkService;
         private InputService _inputService;
+        
+        private LocalPlayer _localPlayer;
         
         private void Awake()
         {
             _inputService = Engine.GetService<InputService>();
+            _networkService = Engine.GetService<NetworkService>();
+
+            LeftHand = _leftHand;
+            RightHand = _rightHand;
+
+            _localPlayer = _inputService.LocalPlayer;
         }
         
-
         public override void OnStartClient()
         {
             base.OnStartClient();
+            
             CmdSyncVisualHand();
-            Debug.Log("SYNC");
-            if (!isOwned | Engine.GetService<NetworkService>().CurrentNetworkPlayer != null)
+
+            if (!isOwned | _networkService.CurrentNetworkPlayer != null)
             {
                 return;
             }
             
-            Engine.GetService<NetworkService>().SetCurrentNetworkPlayer(this);
+            _networkService.SetCurrentNetworkPlayer(this);
+            
+            // Отключаем видимую часть
             _leftHandData.gameObject.SetActive(false);
             _rightHandData.gameObject.SetActive(false);
             _head.gameObject.SetActive(false);
@@ -47,14 +58,12 @@ namespace TwoHandThrowing.Network
                 return;
             }
             
-            Transform localPlayer = _inputService.LocalPlayer.transform;
-            HandCollision localLeft = _inputService.LocalPlayer.LeftHand;
-            HandCollision localRight = _inputService.LocalPlayer.RightHand;
-
-            MapTransform(localLeft.transform, LeftHand);
-            MapTransform(localRight.transform, RightHand);
-            MapTransform(localPlayer, transform);
+            // Синхронизируем позиции
+            MapTransform(_localPlayer.LeftHand.transform, LeftHand);
+            MapTransform(_localPlayer.RightHand.transform, RightHand);
+            MapTransform(_localPlayer.transform, transform);
         }
+        
         
         private void MapTransform(Transform from, Transform to)
         {
@@ -62,42 +71,17 @@ namespace TwoHandThrowing.Network
             to.position = from.position;
         }
 
-        [Command]
-        public void CmdHideHand(HandType handType)
-        {
-            RpcHideHand(handType);
-        }
-
-        [ClientRpc]
-        private void RpcHideHand(HandType handType)
-        {
-            HandData hand = _leftHandData;
-
-            if (handType == HandType.Right)
-            {
-                hand = _rightHandData;
-            }
-
-            hand.HideHand();
-        }
-        
         [Command(requiresAuthority = false)]
-        public void CmdShowHand(HandType handType)
+        public void CmdVisualToggleHand(HandType handType, bool isVisible)
         {
-            RpcShowHand(handType);
+            RpcVisualToggleHand(handType, isVisible);
         }
 
         [ClientRpc]
-        private void RpcShowHand(HandType handType)
+        private void RpcVisualToggleHand(HandType handType,  bool isVisible)
         {
-            HandData hand = _leftHandData;
-
-            if (handType == HandType.Right)
-            {
-                hand = _rightHandData;
-            }
-
-            hand.ShowHand();
+            HandData hand = handType == HandType.Left ? _leftHandData : _rightHandData;
+            hand.ToggleHandVisible(isVisible);
         }
         
         [Command(requiresAuthority = false)]
@@ -109,15 +93,8 @@ namespace TwoHandThrowing.Network
         [ClientRpc]
         private void RpcChangeNetHandDataType(HandType handType, HandDataType handDataType)
         {
-            switch (handType)
-            {
-                case HandType.Left:
-                    _leftHandData.UpdateHandDataType(handDataType);
-                    break;
-                case HandType.Right:
-                    _rightHandData.UpdateHandDataType(handDataType);
-                    break;
-            }
+            HandData hand = handType == HandType.Left ? _leftHandData : _rightHandData;
+            hand.UpdateHandDataType(handDataType);
         }
 
         [Command(requiresAuthority = false)]

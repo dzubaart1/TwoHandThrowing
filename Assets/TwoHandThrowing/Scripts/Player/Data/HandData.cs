@@ -11,15 +11,15 @@ namespace TwoHandThrowing.Player
         public HandType HandType;
         public HandDataType HandDataType;
         
-        public Animator Animator { get; private set; }
-        public Transform Root => _root;
-        public Transform[] Bones => _bones;
-        
         [Space]
         [Header("Bones")]
         [SerializeField] private Transform _root;
         [SerializeField] private Transform[] _bones;
         [SerializeField] private SkinnedMeshRenderer _renderer;
+        
+        public Animator Animator { get; private set; }
+        public Transform Root { get; private set; }
+        public Transform[] Bones { get; private set; }
 
         private HandDataConfigurationService _handDataConfigurationService;
         
@@ -28,43 +28,30 @@ namespace TwoHandThrowing.Player
             Animator = GetComponent<Animator>();
 
             _handDataConfigurationService = Engine.GetService<HandDataConfigurationService>();
+
+            Root = _root;
+            Bones = _bones;
         }
         
         public void UpdateHandDataType(HandDataType handDataType)
         {
             HandDataSettings settings = _handDataConfigurationService.GetSettingsByType(handDataType);
-            
-            switch (HandType)
-            {
-                case HandType.Left:
-                    Animator.runtimeAnimatorController = settings.LeftHandAnimatorController;
-                    break;
-                case HandType.Right:
-                    Animator.runtimeAnimatorController = settings.RightHandAnimatorController;
-                    break;
-            }
-            
+
+            Animator.runtimeAnimatorController = HandType == HandType.Left
+                ? settings.LeftHandAnimatorController
+                : settings.RightHandAnimatorController;
+
             _renderer.sharedMaterial = settings.HandMaterial;
             HandDataType = settings.HandDataType;
         }
 
-        public void ShowHand()
+        public void ToggleHandVisible(bool isVisible)
         {
-            _renderer.enabled = true;
-        }
-
-        public void HideHand()
-        {
-            _renderer.enabled = false;
-        }
-
-        public bool IsVisible()
-        {
-            return _renderer.enabled;
+            _renderer.enabled = isVisible;
         }
     }
 
-    public enum HandType
+    public enum HandType : byte
     {
         Left, Right
     }

@@ -1,5 +1,5 @@
-using TwoHandThrowing.BallStuff;
 using TwoHandThrowing.Core;
+using TwoHandThrowing.Gameplay;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -10,7 +10,7 @@ namespace TwoHandThrowing.Player
     {
         public float MaxVelocityToAttach = 1;
         
-        public HandData HandData => _handData;
+        public HandData HandData { get; private set; }
         public XRDirectInteractor Interactor { get; private set; }
         public ActionBasedController Controller { get; private set; }
         public Rigidbody Rigidbody { get; private set; }
@@ -23,6 +23,8 @@ namespace TwoHandThrowing.Player
             Rigidbody = GetComponent<Rigidbody>();
             Interactor = GetComponent<XRDirectInteractor>();
             Controller = GetComponent<ActionBasedController>();
+
+            HandData = _handData;
         }
 
         [ContextMenu("Config Hand Collisions")]
@@ -31,24 +33,21 @@ namespace TwoHandThrowing.Player
             _handColliders = gameObject.GetComponentsInChildren<Collider>();
         }
 
-        public void TurnOffColliders()
+        public void TogglePhysics(bool isEnable)
         {
             foreach (var collider in _handColliders)
             {
-                collider.enabled = false;
+                collider.enabled = isEnable;
             }
-            
-            Rigidbody.Sleep();
-        }
 
-        public void TurnOnColliders()
-        {
-            foreach (var collider in _handColliders)
+            if (isEnable)
             {
-                collider.enabled = true;
+                Rigidbody.WakeUp();
             }
-            
-            Rigidbody.WakeUp();
+            else
+            {
+                Rigidbody.Sleep();
+            }
         }
 
         public void UpdatePhysicMaterial(PhysicMaterial physicMaterial)

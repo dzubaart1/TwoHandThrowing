@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using TwoHandThrowing.BallStuff;
 using UnityEngine;
 
-namespace TwoHandThrowing.PushStaff
+namespace TwoHandThrowing.Gameplay
 {
     public class PushingPlace : MonoBehaviour
     {
@@ -10,13 +9,13 @@ namespace TwoHandThrowing.PushStaff
 
         private Transform _pushPointsHolder;
 
-        private Dictionary<Ball, Transform> _recorededBallsDict;
+        private Dictionary<Ball, Transform> _recoredBallsDict;
 
         private void Awake()
         {
             _pushPointsHolder = new GameObject("PushPointsHolder").GetComponent<Transform>();
 
-            _recorededBallsDict = new Dictionary<Ball, Transform>();
+            _recoredBallsDict = new Dictionary<Ball, Transform>();
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -28,13 +27,13 @@ namespace TwoHandThrowing.PushStaff
                 return;
             }
 
-            if (_recorededBallsDict.ContainsKey(ball))
+            if (_recoredBallsDict.ContainsKey(ball))
             {
                 return;
             }
 
             Transform pushPoint = SpawnPushPoint(collision.GetContact(0));
-            _recorededBallsDict.Add(ball, pushPoint);
+            _recoredBallsDict.Add(ball, pushPoint);
 
             ball.DestroyBall();
         }

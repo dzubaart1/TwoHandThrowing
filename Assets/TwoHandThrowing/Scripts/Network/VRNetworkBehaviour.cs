@@ -1,11 +1,9 @@
 ﻿using Mirror;
-using TwoHandThrowing.BallStuff;
 using TwoHandThrowing.Core;
-using UnityEngine;
 
 namespace TwoHandThrowing.Network
 {
-    public class NetworkBehaviour : Mirror.NetworkBehaviour
+    public class VRNetworkBehaviour : NetworkBehaviour
     {
         public override void OnStartClient()
         {
@@ -15,9 +13,9 @@ namespace TwoHandThrowing.Network
         }
 
         [Command]
-        public void CmdSpawn(NetworkIdentity owned, Vector3 force)
+        public void CmdSpawnBall()
         {
-            Engine.GetService<BallSpawnerService>().Spawn(owned, force);
+            Engine.GetService<BallSpawnerService>().Spawn();
         }
     }
 }

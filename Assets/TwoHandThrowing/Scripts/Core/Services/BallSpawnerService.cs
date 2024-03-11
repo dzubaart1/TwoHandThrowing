@@ -1,7 +1,7 @@
 ﻿using Mirror;
 using System;
 using System.Collections.Generic;
-using TwoHandThrowing.BallStuff;
+using TwoHandThrowing.Gameplay;
 using UnityEngine;
 
 namespace TwoHandThrowing.Core
@@ -34,13 +34,12 @@ namespace TwoHandThrowing.Core
             _spawnPoints.Add(spawnPoint);
         }
 
-        public void Spawn(NetworkIdentity owner, Vector3 force)
+        public void Spawn()
         {
             foreach(var spawnPoint in _spawnPoints)
             {
-                GameObject obj = _ballSpawner.Spawn(spawnPoint.transform.position, force);
+                GameObject obj = _ballSpawner.Spawn(spawnPoint.transform.position, Vector3.zero);
                 NetworkServer.Spawn(obj);
-                obj.GetComponent<NetworkBehaviour>().netIdentity.AssignClientAuthority(owner.connectionToClient);
             }
 
             SpawnEvent?.Invoke();

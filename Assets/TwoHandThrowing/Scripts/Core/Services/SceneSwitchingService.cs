@@ -22,7 +22,7 @@ namespace TwoHandThrowing.Core
         }
     }
 
-    public enum EScene
+    public enum EScene : byte
     {
         Menu = 0,
         GoalkeeperGame = 1,

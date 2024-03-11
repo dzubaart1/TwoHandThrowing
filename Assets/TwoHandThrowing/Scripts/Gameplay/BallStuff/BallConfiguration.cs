@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace TwoHandThrowing.BallStuff
+namespace TwoHandThrowing.Gameplay
 {
     public class BallConfiguration
     {

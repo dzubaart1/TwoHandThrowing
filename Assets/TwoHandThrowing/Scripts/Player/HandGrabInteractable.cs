@@ -32,48 +32,37 @@ namespace TwoHandThrowing.Player
 
         protected override void OnSelectEntering(SelectEnterEventArgs args)
         {
-            if (args.interactorObject.Equals(_leftHand.Interactor))
+            HandCollision hand = args.interactorObject.Equals(_leftHand.Interactor) ? _leftHand : _rightHand;
+            Transform newAttachTransform = hand.HandData.HandType == HandType.Left
+                ? _leftHandAttachTransform
+                : _rightHandAttachTransform;
+            
+            if (interactorsSelecting.Count != 1)
             {
-                if (interactorsSelecting.Count != 1)
-                {
-                    attachTransform.SetPositionAndRotation(_leftHandAttachTransform.position, _leftHandAttachTransform.rotation);
-                }
-                _leftHand.TurnOffColliders();
+                attachTransform.SetPositionAndRotation(newAttachTransform.position, newAttachTransform.rotation);
             }
-
-            if(args.interactorObject.Equals(_rightHand.Interactor))
-            {
-                if (interactorsSelecting.Count != 1)
-                {
-                    attachTransform.SetPositionAndRotation(_rightHandAttachTransform.position, _rightHandAttachTransform.rotation);
-                }
-                _rightHand.TurnOffColliders();
-            }
-
+            
+            hand.TogglePhysics(false);
+            
             base.OnSelectEntering(args);
+            
             SelectEnteringEvent?.Invoke(args);
         }
 
         protected override void OnSelectExiting(SelectExitEventArgs args)
         {
-            if (args.interactorObject.Equals(_leftHand.Interactor))
-            {
-                if (interactorsSelecting.Count != 1)
-                {
-                    attachTransform.SetPositionAndRotation(_rightHandAttachTransform.position, _rightHandAttachTransform.rotation);
-                }
-                _leftHand.TurnOnColliders();
-            }
+            HandCollision hand = args.interactorObject.Equals(_leftHand.Interactor) ? _leftHand : _rightHand;
+            Transform newAttachTransform = hand.HandData.HandType == HandType.Left
+                ? _rightHandAttachTransform
+                : _leftHandAttachTransform;
 
-            if (args.interactorObject.Equals(_rightHand.Interactor))
+            if (interactorsSelecting.Count != 1)
             {
-                if (interactorsSelecting.Count != 1)
-                {
-                    attachTransform.SetPositionAndRotation(_leftHandAttachTransform.position, _leftHandAttachTransform.rotation);
-                }
-                _rightHand.TurnOnColliders();
+                attachTransform.SetPositionAndRotation(newAttachTransform.position, newAttachTransform.rotation);
             }
-
+            
+            hand.TogglePhysics(true);
+            
             base.OnSelectExiting(args);
         }
     }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using Mirror;
@@ -7,7 +6,7 @@ using TwoHandThrowing.Player;
 using TwoHandThrowing.Tools;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace TwoHandThrowing.BallStuff
+namespace TwoHandThrowing.Gameplay
 {
     [RequireComponent(typeof(Rigidbody), typeof(HandGrabInteractable))]
     public class Ball : NetworkBehaviour
@@ -83,9 +82,12 @@ namespace TwoHandThrowing.BallStuff
                 return;
             }
             
-            _networkService.CurrentNetworkPlayer.CmdHideHand(handCollision.HandData.HandType);
-            _inputService.LocalPlayer.HideHand(handCollision.HandData.HandType);
-            CmdShowHandPose(handCollision.HandData.HandType);
+            // Выключаем видимость рук у локального плеера и у клиентов
+            _networkService.CurrentNetworkPlayer.CmdVisualToggleHand(handCollision.HandData.HandType, false);
+            _inputService.LocalPlayer.ToggleHandVisual(handCollision.HandData.HandType, false);
+            
+            // Включаем видимость Hand Pose у клиентов
+            CmdVisualToggleHandPose(handCollision.HandData.HandType, true);
         }
         
         private void OnSelectExit(SelectExitEventArgs args)
@@ -97,45 +99,25 @@ namespace TwoHandThrowing.BallStuff
                 return;
             }
             
-            _networkService.CurrentNetworkPlayer.CmdShowHand(handCollision.HandData.HandType);
-            _inputService.LocalPlayer.ShowHand(handCollision.HandData.HandType);
-            CmdHideHandPose(handCollision.HandData.HandType);
+            // Включаем видимость рук у локального плеера и у клиентов
+            _networkService.CurrentNetworkPlayer.CmdVisualToggleHand(handCollision.HandData.HandType, true);
+            _inputService.LocalPlayer.ToggleHandVisual(handCollision.HandData.HandType, true);
+            
+            // Выключаем видимость Hand Pose у клиентов
+            CmdVisualToggleHandPose(handCollision.HandData.HandType, false);
         }
 
         [Command(requiresAuthority = false)]
-        public void CmdShowHandPose(HandType handType)
+        public void CmdVisualToggleHandPose(HandType handType, bool isVisible)
         {
-            RpcShowHandPose(handType);
+            RpcToggleHandPoseVisible(handType, isVisible);
         }
 
         [ClientRpc]
-        private void RpcShowHandPose(HandType handType)
+        private void RpcToggleHandPoseVisible(HandType handType, bool isVisible)
         {
-            HandPose handPose = _leftHandPose;
-            if (handType == HandType.Right)
-            {
-                handPose = _rightHandPose;
-            }
-            
-            handPose.ShowGhostHand();
-        }
-        
-        [Command]
-        public void CmdHideHandPose(HandType handType)
-        {
-            RpcHideHandPose(handType);
-        }
-
-        [ClientRpc]
-        private void RpcHideHandPose(HandType handType)
-        {
-            HandPose handPose = _leftHandPose;
-            if (handType == HandType.Right)
-            {
-                handPose = _rightHandPose;
-            }
-            
-            handPose.HideGhostHand();
+            HandPose handPose = handType == HandType.Left ? _leftHandPose : _rightHandPose;
+            handPose.ToggleGhostHandVisible(isVisible);
         }
     }
 }
